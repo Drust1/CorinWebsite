@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vorschau – Praxis Osswald</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<script>document.documentElement.classList.add("js");</script>
+<style>
+/* =========================================================================
+   Praxis Osswald – freier Träger der Kinder- und Jugendhilfe
+   Design system: warm, vertrauensvoll, modern.
+   Brand teal as the anchor, one warm coral accent used sparingly.
+   ========================================================================= */
+
+/* ---------- Design tokens ---------- */
+:root {
+  /* Brand teal scale */
+  --teal-900: #0a4842;
+  --teal-800: #0c574f;
+  --teal-700: #0e6e64;
+  --teal-600: #128a7c;
+  --teal-500: #1aa396;
+  --teal-300: #8fcfc6;
+  --teal-100: #d7ece8;
+  --teal-50:  #eef7f4;
+
+  /* Warm neutrals */
+  --cream:    #fbf6ed;
+  --sand-100: #f3ebdb;
+  --ink:      #21302f;
+  --ink-soft: #4c5e5b;
+  --ink-faint:#778885;
+  --white:    #ffffff;
+  --line:     #e6e0d4;
+
+  /* Accents (use sparingly) */
+  --coral:      #e9694a;
+  --coral-soft: #f6b9a6;
+  --sun:        #f3b53d;
+  --sky:        #6fb4d8;
+
+  /* Semantic */
+  --bg:        var(--cream);
+  --surface:   var(--white);
+  --primary:   var(--teal-700);
+  --primary-ink: #ffffff;
+  --accent:    var(--coral);
+
+  /* Type */
+  --font-display: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Spacing scale (8pt) */
+  --space-1: .25rem; --space-2: .5rem;  --space-3: .75rem; --space-4: 1rem;
+  --space-5: 1.5rem; --space-6: 2rem;   --space-7: 3rem;   --space-8: 4rem;
+  --space-9: 6rem;
+
+  /* Radius & elevation */
+  --r-sm: 10px; --r-md: 16px; --r-lg: 24px; --r-xl: 36px; --r-pill: 999px;
+  --shadow-sm: 0 2px 8px rgba(13, 71, 65, .06);
+  --shadow-md: 0 12px 30px rgba(13, 71, 65, .10);
+  --shadow-lg: 0 24px 60px rgba(13, 71, 65, .14);
+
+  --container: 1140px;
+  --header-h: 76px;
+}
+
+/* ---------- Reset & base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html, body { overflow-x: clip; } /* contain decorative blobs without breaking sticky header */
+body {
+  font-family: var(--font-body);
+  font-size: 1.0625rem;          /* 17px */
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: var(--teal-800); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--teal-600); }
+ul { padding: 0; list-style: none; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: var(--teal-900);
+}
+h1 { font-size: clamp(2.3rem, 5.2vw, 3.9rem); }
+h2 { font-size: clamp(1.8rem, 3.6vw, 2.7rem); }
+h3 { font-size: clamp(1.25rem, 2vw, 1.6rem); letter-spacing: -0.01em; }
+
+p { color: var(--ink-soft); }
+strong { color: var(--ink); font-weight: 600; }
+
+/* ---------- Layout helpers ---------- */
+.container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--space-5); }
+.section { padding-block: clamp(3.5rem, 8vw, 6.5rem); }
+.section--tight { padding-block: clamp(2.5rem, 5vw, 4rem); }
+.center { text-align: center; }
+.measure { max-width: 60ch; }
+.measure-narrow { max-width: 46ch; }
+.stack > * + * { margin-top: var(--space-4); }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--font-display); font-weight: 600;
+  font-size: .8rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--teal-600);
+}
+.eyebrow::before {
+  content: ""; width: 26px; height: 2px; border-radius: 2px;
+  background: var(--coral);
+}
+.lead { font-size: 1.18rem; color: var(--ink-soft); }
+
+/* ---------- Skip link ---------- */
+.skip-link {
+  position: absolute; left: 12px; top: -60px; z-index: 200;
+  background: var(--teal-800); color: #fff; padding: .6rem 1rem;
+  border-radius: var(--r-sm); transition: top .2s ease; font-weight: 600;
+}
+.skip-link:focus { top: 12px; color: #fff; }
+
+/* ---------- Focus visibility ---------- */
+:focus-visible {
+  outline: 3px solid var(--teal-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  --btn-bg: var(--primary); --btn-ink: var(--primary-ink);
+  display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+  font-family: var(--font-display); font-weight: 600; font-size: 1rem;
+  padding: .85rem 1.5rem; border-radius: var(--r-pill);
+  background: var(--btn-bg); color: var(--btn-ink);
+  border: 2px solid transparent; cursor: pointer;
+  text-decoration: none; min-height: 48px;
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+  box-shadow: var(--shadow-sm);
+}
+.btn:hover { color: var(--btn-ink); transform: translateY(-2px); box-shadow: var(--shadow-md); background: var(--teal-800); }
+.btn:active { transform: translateY(0); }
+.btn--accent { --btn-bg: var(--coral); --btn-ink: #fff; }
+.btn--accent:hover { background: #d75a3d; }
+.btn--ghost {
+  --btn-bg: transparent; --btn-ink: var(--teal-800);
+  border-color: var(--teal-300); box-shadow: none;
+}
+.btn--ghost:hover { background: var(--teal-50); border-color: var(--teal-500); color: var(--teal-800); }
+.btn--lg { padding: 1rem 1.9rem; font-size: 1.06rem; }
+.btn .icon { width: 20px; height: 20px; }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(251, 246, 237, .82);
+  backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.site-header__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-4); min-height: var(--header-h);
+}
+.brand { display: inline-flex; align-items: center; gap: .7rem; text-decoration: none; }
+.brand__mark { width: 44px; height: 44px; flex: none; }
+.brand__text { display: flex; flex-direction: column; line-height: 1.05; }
+.brand__name { font-family: var(--font-display); font-weight: 700; font-size: 1.12rem; color: var(--teal-900); }
+.brand__tag { font-size: .72rem; color: var(--ink-faint); letter-spacing: .01em; }
+
+.nav { display: flex; align-items: center; gap: var(--space-2); }
+.nav a {
+  font-family: var(--font-display); font-weight: 600; font-size: .98rem;
+  color: var(--teal-900); text-decoration: none;
+  padding: .55rem .85rem; border-radius: var(--r-pill);
+  transition: background-color .15s ease, color .15s ease;
+}
+.nav a:hover { background: var(--teal-50); }
+.nav a[aria-current="page"] { background: var(--teal-700); color: #fff; }
+.nav__cta { margin-left: var(--space-2); }
+
+.nav-toggle {
+  display: none; width: 48px; height: 48px; border: 1px solid var(--line);
+  background: var(--white); border-radius: var(--r-sm); cursor: pointer;
+  align-items: center; justify-content: center;
+}
+.nav-toggle .icon { width: 24px; height: 24px; color: var(--teal-900); }
+
+/* ---------- Hero ---------- */
+.hero { position: relative; overflow: hidden; padding-block: clamp(3rem, 7vw, 5.5rem); }
+.hero__grid {
+  display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+.hero h1 { margin-bottom: var(--space-4); }
+.hero h1 .hl { color: var(--teal-600); }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+.hero__trust {
+  display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; margin-top: var(--space-6);
+  color: var(--ink-soft); font-size: .95rem;
+}
+.hero__trust li { display: inline-flex; align-items: center; gap: .5rem; }
+.hero__trust .icon { width: 18px; height: 18px; color: var(--teal-600); }
+
+.hero__art { position: relative; }
+.hero__card {
+  position: relative; z-index: 2; background: var(--white);
+  border-radius: var(--r-xl); box-shadow: var(--shadow-lg);
+  padding: clamp(1.5rem, 3vw, 2.4rem); overflow: hidden;
+}
+.blob {
+  position: absolute; border-radius: 50%; filter: blur(2px); opacity: .9; z-index: 0;
+}
+.blob--1 { width: 320px; height: 320px; background: var(--teal-100); top: -60px; right: -60px; }
+.blob--2 { width: 220px; height: 220px; background: var(--coral-soft); bottom: -50px; left: -40px; opacity: .55; }
+
+/* decorative wave divider */
+.wave { display: block; width: 100%; height: auto; color: var(--teal-50); }
+
+/* ---------- Cards & grids ---------- */
+.grid { display: grid; gap: var(--space-5); }
+.grid--2 { grid-template-columns: repeat(2, 1fr); }
+.grid--3 { grid-template-columns: repeat(3, 1fr); }
+.grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+.card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-lg); padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.card--link { display: block; text-decoration: none; color: inherit; }
+.card--link:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--teal-300); color: inherit; }
+.card h3 { margin-bottom: var(--space-2); }
+.card p { font-size: .98rem; }
+.card__more {
+  display: inline-flex; align-items: center; gap: .4rem; margin-top: var(--space-4);
+  font-family: var(--font-display); font-weight: 600; color: var(--teal-700);
+}
+.card--link:hover .card__more { gap: .65rem; color: var(--teal-600); }
+.card__more .icon { width: 18px; height: 18px; }
+
+/* icon chip */
+.chip {
+  width: 56px; height: 56px; border-radius: var(--r-md);
+  display: grid; place-items: center; margin-bottom: var(--space-4);
+  background: var(--teal-50); color: var(--teal-700);
+}
+.chip .icon { width: 28px; height: 28px; }
+.chip--coral { background: #fdeee9; color: var(--coral); }
+.chip--sun { background: #fdf3da; color: #c98a09; }
+.chip--sky { background: #e7f2f8; color: #2f7ba3; }
+
+/* tag / badge */
+.tag {
+  display: inline-block; font-family: var(--font-display); font-weight: 600;
+  font-size: .78rem; letter-spacing: .02em; color: var(--teal-800);
+  background: var(--teal-100); padding: .28rem .7rem; border-radius: var(--r-pill);
+}
+
+/* ---------- Section backgrounds ---------- */
+.bg-soft { background: var(--teal-50); }
+.bg-teal { background: var(--teal-800); color: #eaf5f2; }
+.bg-teal h2, .bg-teal h3 { color: #fff; }
+.bg-teal p { color: #cfe7e2; }
+.bg-sand { background: var(--sand-100); }
+
+/* ---------- Values ---------- */
+.value { text-align: left; }
+.value__num {
+  font-family: var(--font-display); font-weight: 700; font-size: .9rem;
+  color: var(--coral);
+}
+
+/* ---------- Service detail blocks ---------- */
+.service {
+  display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center; padding-block: clamp(2rem, 4vw, 3.2rem);
+  border-top: 1px solid var(--line);
+}
+.service:first-of-type { border-top: none; }
+.service__media {
+  border-radius: var(--r-lg); overflow: hidden; aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, var(--teal-100), var(--teal-50));
+  display: grid; place-items: center; box-shadow: var(--shadow-sm);
+}
+.service__media .illus { width: 72%; height: auto; }
+.service:nth-child(even) .service__media { order: 2; }
+.service h2 { font-size: clamp(1.5rem, 2.6vw, 2rem); margin-bottom: var(--space-3); }
+
+/* ---------- Process steps ---------- */
+.steps { counter-reset: step; display: grid; gap: var(--space-5); }
+.step { position: relative; padding-left: 4.2rem; }
+.step::before {
+  counter-increment: step; content: counter(step);
+  position: absolute; left: 0; top: 0;
+  width: 3rem; height: 3rem; border-radius: var(--r-pill);
+  background: var(--white); border: 2px solid var(--teal-300); color: var(--teal-700);
+  font-family: var(--font-display); font-weight: 700; font-size: 1.2rem;
+  display: grid; place-items: center;
+}
+.step h3 { margin-bottom: var(--space-1); }
+
+/* ---------- CTA band ---------- */
+.cta-band {
+  border-radius: var(--r-xl); padding: clamp(2rem, 5vw, 3.5rem);
+  background:
+    radial-gradient(120% 120% at 100% 0%, rgba(243,181,61,.18), transparent 60%),
+    var(--teal-800);
+  color: #fff; text-align: center;
+}
+.cta-band h2 { color: #fff; }
+.cta-band p { color: #cfe7e2; margin-inline: auto; }
+.cta-band .hero__actions { justify-content: center; }
+
+/* ---------- Forms ---------- */
+.form { display: grid; gap: var(--space-4); }
+.field { display: grid; gap: .4rem; }
+.field label { font-family: var(--font-display); font-weight: 600; color: var(--teal-900); font-size: .95rem; }
+.field .req { color: var(--coral); }
+.field input, .field textarea {
+  width: 100%; font: inherit; color: var(--ink);
+  background: var(--white); border: 1.5px solid var(--line);
+  border-radius: var(--r-sm); padding: .8rem .9rem; min-height: 48px;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.field textarea { min-height: 150px; resize: vertical; }
+.field input:focus, .field textarea:focus {
+  outline: none; border-color: var(--teal-500);
+  box-shadow: 0 0 0 4px var(--teal-100);
+}
+.checkbox { display: grid; grid-template-columns: auto 1fr; gap: .7rem; align-items: start; }
+.checkbox input { width: 22px; height: 22px; margin-top: .15rem; accent-color: var(--teal-700); }
+.checkbox label { font-family: var(--font-body); font-weight: 400; color: var(--ink-soft); font-size: .92rem; line-height: 1.5; }
+.form__note { font-size: .85rem; color: var(--ink-faint); }
+.form__status { display: none; padding: .9rem 1rem; border-radius: var(--r-sm); font-weight: 500; }
+.form__status.is-visible { display: block; }
+.form__status--ok { background: var(--teal-50); color: var(--teal-800); border: 1px solid var(--teal-300); }
+
+.contact-meta { display: grid; gap: var(--space-3); }
+.contact-meta li { display: grid; grid-template-columns: auto 1fr; gap: .8rem; align-items: start; }
+.contact-meta .icon { width: 22px; height: 22px; color: var(--teal-600); margin-top: .15rem; }
+.contact-meta a { color: var(--teal-800); }
+.map-frame {
+  width: 100%; aspect-ratio: 4 / 3; border: 0; border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm); margin-top: var(--space-5);
+}
+
+/* ---------- Footer ---------- */
+.site-footer { background: var(--teal-900); color: #cfe7e2; padding-block: var(--space-8) var(--space-6); }
+.site-footer a { color: #d7ece8; text-decoration: none; }
+.site-footer a:hover { color: #fff; text-decoration: underline; }
+.footer__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: var(--space-6); }
+.footer__brand .brand__name { color: #fff; }
+.footer__brand .brand__tag { color: #9cc4bd; }
+.footer h4 { color: #fff; font-size: 1rem; margin-bottom: var(--space-3); }
+.footer ul { display: grid; gap: .6rem; }
+.footer__bottom {
+  margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid rgba(255,255,255,.12);
+  display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-5); justify-content: space-between;
+  font-size: .88rem; color: #9cc4bd;
+}
+
+/* ---------- Page hero (sub pages) ---------- */
+.page-hero { padding-block: clamp(2.5rem, 6vw, 4.5rem); background: var(--teal-50); }
+.page-hero .eyebrow { margin-bottom: var(--space-3); }
+.page-hero p { font-size: 1.15rem; }
+.breadcrumb { font-size: .85rem; color: var(--ink-faint); margin-bottom: var(--space-4); }
+.breadcrumb a { color: var(--teal-700); text-decoration: none; }
+
+/* ---------- Entrance animation ----------
+   Content is always visible. A gentle one-time fade-up runs on load for a
+   little polish; it never hides content, so no-JS and slow loads are safe. */
+.reveal { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal { animation: fade-up .6s cubic-bezier(.22,.61,.36,1) both; }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------- Prose ---------- */
+.prose p + p { margin-top: var(--space-4); }
+.prose h3 { margin-top: var(--space-6); margin-bottom: var(--space-2); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 920px) {
+  .grid--4 { grid-template-columns: repeat(2, 1fr); }
+  .grid--3 { grid-template-columns: repeat(2, 1fr); }
+  .hero__grid { grid-template-columns: 1fr; }
+  .hero__art { order: -1; max-width: 460px; }
+  .service { grid-template-columns: 1fr; }
+  .service:nth-child(even) .service__media { order: 0; }
+  .service__media { max-width: 460px; }
+  .footer__grid { grid-template-columns: 1fr 1fr; }
+  .footer__brand { grid-column: 1 / -1; }
+}
+@media (max-width: 680px) {
+  .nav { display: none; }
+  .nav-toggle { display: inline-flex; }
+  .site-nav.is-open .nav {
+    display: flex; flex-direction: column; align-items: stretch;
+    position: absolute; left: 0; right: 0; top: var(--header-h);
+    background: var(--white); border-bottom: 1px solid var(--line);
+    padding: var(--space-4); gap: var(--space-1); box-shadow: var(--shadow-md);
+  }
+  .site-nav.is-open .nav a { padding: .85rem 1rem; }
+  .nav__cta { margin-left: 0; }
+  .grid--2, .grid--3, .grid--4 { grid-template-columns: 1fr; }
+  .footer__grid { grid-template-columns: 1fr; }
+  body { font-size: 1rem; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+.page[hidden]{display:none;}
+</style>
+</head>
+<body>
+<div style="background:#0a4842;color:#cfe7e2;text-align:center;font:600 .85rem/1.4 Inter,sans-serif;padding:.5rem 1rem;">Vorschau – Praxis Osswald · klicken Sie durch die Navigation. (Karte &amp; Formularversand sind erst nach dem Deployment aktiv.)</div>
+<a class="skip-link" href="#start">Zum Inhalt springen</a>
+<header class="site-header">
+    <div class="container site-header__inner site-nav">
+      <a class="brand" href="#start" data-page="start" aria-label="Praxis Osswald – Startseite">
+        <svg class="brand__mark" viewBox="0 0 48 48" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 14.5c2.2-3.6 8.6-3.4 10.4.8 1.6 3.7-1.1 7.4-4 9.9-1.9 1.6-4.3 3.2-6.4 4.6-2.1-1.4-4.5-3-6.4-4.6-2.9-2.5-5.6-6.2-4-9.9 1.8-4.2 8.2-4.4 10.4-.8Z" fill="#e9694a"/>
+          <path d="M7 27c0-1.1.9-2 2-2s2 .9 2 2v6.5c1.6 1.7 4.7 4 8 5.6 2.3 1.1 4 1.4 5 1.4s2.7-.3 5-1.4c3.3-1.6 6.4-3.9 8-5.6V27c0-1.1.9-2 2-2s2 .9 2 2v7.4c0 .6-.2 1.1-.6 1.5C44 38.6 38.7 43 33 45.4c-3 1.2-5.2 1.6-9 1.6s-6-.4-9-1.6C9.3 43 4 38.6 1.6 35.9 1.2 35.5 1 35 1 34.4V27c0-1.1.9-2 2-2" fill="#0e6e64"/>
+          <path d="M6 26c1.7 0 3 1.3 3 3v5.8c1.4 1.4 3.9 3.3 6.6 4.6" stroke="#0a4842" stroke-width="0" />
+        </svg>
+        <span class="brand__text">
+          <span class="brand__name">Praxis Osswald</span>
+          <span class="brand__tag">Kinder- &amp; Jugendhilfe Berlin</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Hauptnavigation">
+        <a href="#start" aria-current="page">Startseite</a>
+        <a href="#leitbild" data-page="leitbild">Leitbild</a>
+        <a href="#leistungen" data-page="leistungen">Leistungen</a>
+        <a href="#kontakt" data-page="kontakt">Kontakt</a>
+        <a class="btn btn--accent nav__cta" href="tel:+491719188816">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+          Anrufen
+        </a>
+      </nav>
+      <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </header>
+<main id="main">
+<div class="page" id="start" role="region" aria-label="start">
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <span class="eyebrow">Freier Träger der Kinder- und Jugendhilfe · Berlin</span>
+          <h1>Familien stärken.<br><span class="hl">Junge Menschen begleiten.</span></h1>
+          <p class="lead measure">Wir unterstützen Familien in herausfordernden Lebenslagen und geben Kindern und Jugendlichen einen sicheren, verlässlichen Rahmen, in dem sie wachsen können – ambulant, individuell und auf Augenhöhe.</p>
+          <div class="hero__actions">
+            <a class="btn btn--lg" href="#leistungen">Unsere Leistungen
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a class="btn btn--ghost btn--lg" href="#kontakt">Kontakt aufnehmen</a>
+          </div>
+          <ul class="hero__trust">
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Hilfen zur Erziehung nach SGB VIII</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Standort in Berlin-Tempelhof</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Respektvoll &amp; verlässlich</li>
+          </ul>
+        </div>
+
+        <div class="hero__art">
+          <span class="blob blob--1" aria-hidden="true"></span>
+          <span class="blob blob--2" aria-hidden="true"></span>
+          <div class="hero__card">
+            <svg viewBox="0 0 420 360" role="img" aria-label="Illustration: eine Hand gibt einem jungen Menschen Halt, während er aufwächst." xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#eef7f4"/><stop offset="1" stop-color="#d7ece8"/>
+                </linearGradient>
+              </defs>
+              <rect width="420" height="360" rx="20" fill="url(#sky)"/>
+              <circle cx="330" cy="78" r="34" fill="#f3b53d" opacity=".9"/>
+              <g stroke="#f3b53d" stroke-width="3" stroke-linecap="round" opacity=".7">
+                <line x1="330" y1="20" x2="330" y2="34"/><line x1="372" y1="36" x2="362" y2="46"/>
+                <line x1="388" y1="78" x2="374" y2="78"/><line x1="288" y1="36" x2="298" y2="46"/>
+              </g>
+              <!-- ground -->
+              <path d="M0 300 Q 120 270 230 296 T 420 292 V360 H0 Z" fill="#bfe0d8"/>
+              <path d="M0 320 Q 140 300 260 318 T 420 314 V360 H0 Z" fill="#9ed3c8"/>
+              <!-- big supportive hand -->
+              <g fill="#0e6e64">
+                <path d="M70 250c-14-26-26-54-22-66 3-9 13-8 18 2l12 24c-2-22-4-46 0-52 4-7 14-5 15 4l4 40 5-44c1-9 13-9 15 0l3 46 7-38c2-9 13-8 14 1l-2 50c8-8 18-15 24-11 6 5 1 16-6 25-9 12-18 27-23 41-2 6-8 10-14 10H86c-7 0-12-4-16-12Z"/>
+              </g>
+              <g fill="#f6b9a6"><circle cx="106" cy="120" r="2.5"/></g>
+              <!-- growing plant / young person -->
+              <g>
+                <path d="M250 300V200" stroke="#0c574f" stroke-width="8" stroke-linecap="round"/>
+                <path d="M250 232c-22-4-36-22-34-42 22 2 38 20 34 42Z" fill="#1aa396"/>
+                <path d="M250 210c18-8 40-2 50 16-20 8-44 4-50-16Z" fill="#8fcfc6"/>
+                <circle cx="250" cy="180" r="20" fill="#e9694a"/>
+                <path d="M250 168c2-4 8-4 10 0 2 4-2 8-5 11-3-3-7-7-5-11Z" fill="#fff"/>
+                <circle cx="296" cy="150" r="8" fill="#f3b53d"/>
+                <circle cx="214" cy="160" r="6" fill="#6fb4d8"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VALUES ============ -->
+    <section class="section bg-soft">
+      <div class="container">
+        <div class="center stack" style="margin-inline:auto; max-width:46rem;">
+          <span class="eyebrow" style="margin-inline:auto;">Unser Leitbild</span>
+          <h2>Werte, auf die Sie sich verlassen können</h2>
+          <p class="lead">Unser Handeln ruht auf vier Grundhaltungen. Sie prägen jede Begegnung mit den Familien, Kindern und jungen Menschen, die wir begleiten.</p>
+        </div>
+        <div class="grid grid--4" style="margin-top: var(--space-7);">
+          <div class="card value reveal">
+            <p class="value__num">01</p>
+            <h3>Respekt</h3>
+            <p>Wir begegnen allen Menschen mit Achtung und sehen jede Person als einzigartig und wertvoll an.</p>
+          </div>
+          <div class="card value reveal">
+            <p class="value__num">02</p>
+            <h3>Würde</h3>
+            <p>Jeder Mensch hat ein Recht auf Schutz, Beteiligung und eine selbstbestimmte Entwicklung.</p>
+          </div>
+          <div class="card value reveal">
+            <p class="value__num">03</p>
+            <h3>Vertrauen</h3>
+            <p>Wir arbeiten transparent und offen, um tragfähige Beziehungen und Verständnis zu schaffen.</p>
+          </div>
+          <div class="card value reveal">
+            <p class="value__num">04</p>
+            <h3>Verlässlichkeit</h3>
+            <p>Als beständige Partner stehen wir Familien zur Seite – auch in schwierigen Phasen.</p>
+          </div>
+        </div>
+        <p class="center" style="margin-top: var(--space-6);">
+          <a class="btn btn--ghost" href="#leitbild">Mehr über unser Leitbild</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ SERVICES ============ -->
+    <section class="section">
+      <div class="container">
+        <div class="stack" style="max-width:46rem;">
+          <span class="eyebrow">Unsere Leistungen</span>
+          <h2>Ambulante Hilfen zur Erziehung nach SGB&nbsp;VIII</h2>
+          <p class="lead">Maßgeschneiderte Unterstützung, die in der Lebenswelt der Familien ansetzt – von der Beratung im Alltag bis zur intensiven Einzelbegleitung.</p>
+        </div>
+
+        <div class="grid grid--3" style="margin-top: var(--space-7);">
+          <a class="card card--link reveal" href="#leistungen">
+            <span class="chip" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></span>
+            <span class="tag">§ 30 SGB VIII</span>
+            <h3 style="margin-top:.6rem;">Erziehungsbeistand / BetreuungshelferIn</h3>
+            <p>Eine ergänzende Bezugsperson, die junge Menschen ermutigt, ihre Stärken zu entdecken und ihre Entwicklung selbst in den Blick zu nehmen.</p>
+            <span class="card__more">Mehr erfahren <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a class="card card--link reveal" href="#leistungen">
+            <span class="chip chip--sun" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+            <span class="tag">§ 31 SGB VIII</span>
+            <h3 style="margin-top:.6rem;">Sozialpädagogische Familienhilfe</h3>
+            <p>Begleitung der ganzen Familie über einen längeren Zeitraum – bei der Erziehung, bei Konflikten und beim Lösen alltäglicher Herausforderungen.</p>
+            <span class="card__more">Mehr erfahren <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a class="card card--link reveal" href="#leistungen">
+            <span class="chip chip--coral" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z"/></svg></span>
+            <span class="tag">Intensiv</span>
+            <h3 style="margin-top:.6rem;">Intensive sozialpädagogische Einzelbetreuung</h3>
+            <p>Eine sehr individuelle Hilfe für junge Menschen in besonders belasteten Lebenslagen – stabilisierend, alltagsnah, bis hin zu intensiver Begleitung.</p>
+            <span class="card__more">Mehr erfahren <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a class="card card--link reveal" href="#leistungen">
+            <span class="chip chip--sky" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 21-3-3m0 0a3 3 0 1 0-4.24-4.24A3 3 0 0 0 19 18Z"/></svg></span>
+            <span class="tag">Umgang</span>
+            <h3 style="margin-top:.6rem;">Begleiteter Umgang</h3>
+            <p>Damit Kinder ihr Recht auf eine gute Beziehung zu beiden Eltern wahrnehmen können – auch nach einer Trennung, in einem geschützten Rahmen.</p>
+            <span class="card__more">Mehr erfahren <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a class="card card--link reveal" href="#leistungen">
+            <span class="chip" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
+            <span class="tag">Krise</span>
+            <h3 style="margin-top:.6rem;">Clearing</h3>
+            <p>Eine zeitintensive Hilfe in akuten oder chronischen Krisen: Wir analysieren die Lebenssituation und erarbeiten gemeinsam konkrete Lösungen.</p>
+            <span class="card__more">Mehr erfahren <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a class="card card--link reveal" href="#leistungen">
+            <span class="chip chip--sun" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a8.38 8.38 0 0 1 13 0"/></svg></span>
+            <span class="tag">Gruppe</span>
+            <h3 style="margin-top:.6rem;">Soziale Gruppenarbeit</h3>
+            <p>In kleinen Gruppen lernen Jugendliche, Konflikte zu lösen, Verantwortung zu übernehmen und Selbstvertrauen aufzubauen.</p>
+            <span class="card__more">Mehr erfahren <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROCESS ============ -->
+    <section class="section bg-sand">
+      <div class="container">
+        <div class="grid grid--2" style="align-items:start; gap: clamp(2rem,5vw,4rem);">
+          <div class="stack">
+            <span class="eyebrow">So begleiten wir Sie</span>
+            <h2>Der Weg zur passenden Hilfe</h2>
+            <p class="lead">Jede Familie ist anders. Deshalb beginnt unsere Arbeit mit Zuhören – und endet erst, wenn tragfähige Lösungen im Alltag angekommen sind.</p>
+            <p><a class="btn" href="#kontakt">Erstgespräch vereinbaren
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></p>
+          </div>
+          <div class="steps">
+            <div class="step reveal"><h3>Kennenlernen</h3><p>In einem unverbindlichen Erstgespräch klären wir Ihr Anliegen und Ihre Fragen.</p></div>
+            <div class="step reveal"><h3>Verstehen</h3><p>Gemeinsam mit Ihnen und dem Jugendamt schauen wir, welche Hilfe wirklich passt.</p></div>
+            <div class="step reveal"><h3>Begleiten</h3><p>Eine feste Fachkraft arbeitet kontinuierlich mit Ihnen – in Ihrem Alltag, auf Augenhöhe.</p></div>
+            <div class="step reveal"><h3>Stärken</h3><p>Schritt für Schritt zu mehr Stabilität, Selbstvertrauen und neuen Perspektiven.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="section--tight">
+      <div class="container">
+        <div class="cta-band reveal">
+          <h2>Sie suchen Unterstützung für Ihre Familie?</h2>
+          <p class="lead measure" style="max-width:48ch;">Ob Eltern, junge Menschen oder Fachkräfte vom Jugendamt – wir sind für Sie da und hören zu. Schreiben Sie uns oder rufen Sie einfach an.</p>
+          <div class="hero__actions">
+            <a class="btn btn--accent btn--lg" href="#kontakt">Kontakt aufnehmen</a>
+            <a class="btn btn--ghost btn--lg" href="tel:+491719188816" style="--teal-300:#7fc3b9; color:#eaf5f2; border-color:rgba(255,255,255,.45);">0171 - 9188816</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div><div class="page" id="leitbild" role="region" aria-label="leitbild">
+    <section class="page-hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="#start">Startseite</a> · Leitbild</p>
+        <span class="eyebrow">Wer wir sind</span>
+        <h1 style="margin:.4rem 0 1rem;">Unser Leitbild</h1>
+        <p class="lead measure">Wir sind ein engagierter freier Träger der Kinder- und Jugendhilfe und bieten ambulante sozialpädagogische Hilfen sowie Begleiteten Umgang an. Unsere Mission: Familien in herausfordernden Lebenssituationen stärken und jungen Menschen eine sichere, förderliche Umgebung geben.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container grid grid--2" style="gap: clamp(2rem,5vw,4rem); align-items:center;">
+        <div class="prose stack">
+          <span class="eyebrow">Unsere Haltung</span>
+          <h2>Jeder Mensch ist einzigartig und wertvoll</h2>
+          <p>Unser Handeln basiert auf den Werten <strong>Respekt, Würde, Vertrauen und Verlässlichkeit</strong>. Wir begegnen allen Menschen mit Achtung und sehen jede Person als einzigartig an. Als verlässliche Partner stehen wir Familien zur Seite und arbeiten transparent und offen, um Vertrauen und Verständnis zu schaffen.</p>
+          <p>Unsere Ziele sind die Stärkung der Familie, die Förderung der Kindesentwicklung und die individuelle Unterstützung. Durch maßgeschneiderte Hilfsangebote tragen wir dazu bei, dass Kinder und Jugendliche in einer stabilen und liebevollen Umgebung aufwachsen können. Wir vermitteln soziale, emotionale und praktische Kompetenzen, die den Alltag erleichtern und zur langfristigen Stabilität beitragen.</p>
+        </div>
+        <div class="hero__art">
+          <span class="blob blob--1" aria-hidden="true"></span>
+          <div class="hero__card">
+            <svg viewBox="0 0 420 320" role="img" aria-label="Illustration: Menschen, die einander Halt geben." xmlns="http://www.w3.org/2000/svg">
+              <rect width="420" height="320" rx="20" fill="#eef7f4"/>
+              <circle cx="210" cy="150" r="100" fill="#d7ece8"/>
+              <g>
+                <circle cx="150" cy="130" r="26" fill="#0e6e64"/><rect x="124" y="158" width="52" height="60" rx="22" fill="#0e6e64"/>
+                <circle cx="270" cy="130" r="26" fill="#e9694a"/><rect x="244" y="158" width="52" height="60" rx="22" fill="#e9694a"/>
+                <circle cx="210" cy="118" r="22" fill="#f3b53d"/><rect x="188" y="142" width="44" height="54" rx="20" fill="#f3b53d"/>
+              </g>
+              <path d="M120 230q90 40 180 0" stroke="#0a4842" stroke-width="6" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-soft">
+      <div class="container">
+        <div class="stack center" style="margin-inline:auto; max-width:42rem;">
+          <span class="eyebrow" style="margin-inline:auto;">Vier Werte</span>
+          <h2>Was uns leitet</h2>
+        </div>
+        <div class="grid grid--4" style="margin-top: var(--space-7);">
+          <div class="card value reveal"><p class="value__num">01</p><h3>Respekt</h3><p>Achtung vor jedem Menschen – unabhängig von Herkunft, Alter oder Lebenslage.</p></div>
+          <div class="card value reveal"><p class="value__num">02</p><h3>Würde</h3><p>Schutz, Beteiligung und das Recht auf eine selbstbestimmte Entwicklung.</p></div>
+          <div class="card value reveal"><p class="value__num">03</p><h3>Vertrauen</h3><p>Offenheit und Transparenz als Grundlage tragfähiger Beziehungen.</p></div>
+          <div class="card value reveal"><p class="value__num">04</p><h3>Verlässlichkeit</h3><p>Beständigkeit – auch und gerade in schwierigen Phasen.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section--tight" style="padding-bottom: clamp(3.5rem,8vw,6.5rem);">
+      <div class="container">
+        <div class="cta-band reveal">
+          <h2>Lernen Sie uns kennen</h2>
+          <p class="lead" style="max-width:46ch;">Wir nehmen uns Zeit für Ihr Anliegen – unverbindlich und vertraulich.</p>
+          <div class="hero__actions">
+            <a class="btn btn--accent btn--lg" href="#kontakt">Kontakt aufnehmen</a>
+            <a class="btn btn--ghost btn--lg" href="#leistungen" style="color:#eaf5f2; border-color:rgba(255,255,255,.45);">Unsere Leistungen</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div><div class="page" id="leistungen" role="region" aria-label="leistungen">
+    <section class="page-hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="#start">Startseite</a> · Leistungen</p>
+        <span class="eyebrow">Was wir anbieten</span>
+        <h1 style="margin:.4rem 0 1rem;">Ambulante Hilfen zur Erziehung</h1>
+        <p class="lead measure">Alle unsere Angebote sind Hilfen zur Erziehung nach dem SGB&nbsp;VIII. Sie setzen in der Lebenswelt der Familien an und werden individuell auf die jeweilige Situation zugeschnitten.</p>
+        <nav aria-label="Übersicht der Leistungen" style="margin-top: var(--space-5); display:flex; flex-wrap:wrap; gap:.5rem;">
+          <a class="tag" href="#erziehungsbeistand" style="text-decoration:none;">Erziehungsbeistand</a>
+          <a class="tag" href="#familienhilfe" style="text-decoration:none;">Familienhilfe</a>
+          <a class="tag" href="#einzelbetreuung" style="text-decoration:none;">Einzelbetreuung</a>
+          <a class="tag" href="#begleiteter-umgang" style="text-decoration:none;">Begleiteter Umgang</a>
+          <a class="tag" href="#clearing" style="text-decoration:none;">Clearing</a>
+          <a class="tag" href="#gruppenarbeit" style="text-decoration:none;">Gruppenarbeit</a>
+        </nav>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+
+        <!-- 1 -->
+        <article class="service" id="erziehungsbeistand">
+          <div class="service__media reveal" aria-hidden="true">
+            <svg class="illus" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="150" rx="14" fill="#d7ece8"/><path d="M100 120V70" stroke="#0c574f" stroke-width="7" stroke-linecap="round"/><path d="M100 92c-16-3-26-16-24-30 16 1 27 14 24 30Z" fill="#1aa396"/><path d="M100 78c12-6 28-2 35 11-14 6-31 3-35-11Z" fill="#8fcfc6"/><circle cx="100" cy="56" r="15" fill="#e9694a"/><circle cx="135" cy="40" r="7" fill="#f3b53d"/></svg>
+          </div>
+          <div class="prose stack">
+            <span class="tag">§ 30 SGB VIII</span>
+            <h2>Erziehungsbeistand / BetreuungshelferIn</h2>
+            <p>Der Erziehungsbeistand – auch Betreuungshelfer genannt – ist eine zu den Eltern ergänzende Hilfe und Bezugsperson für das Kind, den Jugendlichen oder jungen Volljährigen. Diese Hilfe richtet sich direkt an den jungen Menschen; die Einbeziehung der Eltern oder anderer Personenberechtigter ist vor allem bei jüngeren Menschen unerlässlich.</p>
+            <p>Ziel ist es, dem jungen Menschen Anerkennung und Wertschätzung näherzubringen, seine Stärken herauszubilden und ihn zu ermutigen, die eigene Entwicklung in den Blick zu nehmen und zu fördern.</p>
+            <p><a class="btn btn--ghost" href="#kontakt">Beratung anfragen</a></p>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="service" id="familienhilfe">
+          <div class="service__media reveal" aria-hidden="true" style="background:linear-gradient(135deg,#fdf3da,#fbf6ed);">
+            <svg class="illus" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="150" rx="14" fill="#fdf3da"/><circle cx="70" cy="58" r="16" fill="#0e6e64"/><rect x="54" y="78" width="32" height="40" rx="14" fill="#0e6e64"/><circle cx="130" cy="58" r="16" fill="#e9694a"/><rect x="114" y="78" width="32" height="40" rx="14" fill="#e9694a"/><circle cx="100" cy="78" r="11" fill="#f3b53d"/><rect x="89" y="92" width="22" height="28" rx="10" fill="#f3b53d"/></svg>
+          </div>
+          <div class="prose stack">
+            <span class="tag">§ 31 SGB VIII</span>
+            <h2>Sozialpädagogische Familienhilfe</h2>
+            <p>Bei der Sozialpädagogischen Familienhilfe steht die gesamte Familie im Mittelpunkt. Eine Fachkraft unterstützt die Familie über einen längeren Zeitraum bei der Erziehung, bei individuellen Schwierigkeiten mit Außenstehenden und bei alltäglichen Problemen.</p>
+            <p>Sie hilft, Konflikte zu lösen und bestehende Probleme zu bewältigen – und entwickelt gemeinsam mit der Familie Strategien, damit künftige Herausforderungen eigenständig gemeistert werden können. Eine familienunterstützende Hilfe im besten Sinne.</p>
+            <p><a class="btn btn--ghost" href="#kontakt">Beratung anfragen</a></p>
+          </div>
+        </article>
+
+        <!-- 3 -->
+        <article class="service" id="einzelbetreuung">
+          <div class="service__media reveal" aria-hidden="true" style="background:linear-gradient(135deg,#fdeee9,#fbf6ed);">
+            <svg class="illus" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="150" rx="14" fill="#fdeee9"/><circle cx="100" cy="62" r="20" fill="#e9694a"/><rect x="76" y="88" width="48" height="40" rx="18" fill="#e9694a"/><path d="M40 110q60-50 120 0" stroke="#0e6e64" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="40" cy="110" r="8" fill="#0e6e64"/><circle cx="160" cy="110" r="8" fill="#0e6e64"/></svg>
+          </div>
+          <div class="prose stack">
+            <span class="tag">Intensiv</span>
+            <h2>Intensive sozialpädagogische Einzelbetreuung</h2>
+            <p>Diese ambulante Hilfe wird im Regelfall außerhalb der Familie erbracht und setzt in der Lebenswelt der jungen Menschen an. In bestimmten Fällen kann sie auf eine ambulante 24-Stunden-Betreuung ausgeweitet und – wenn die Hilfeplanung es vorsieht – als Alternative zu Maßnahmen des Jugendstrafrechts gewährt werden.</p>
+            <p>Sie ist besonders geeignet für junge Menschen, die sich den gängigen Bezügen von Familie, Schule und Ausbildung entzogen haben. Ziel ist es, die Persönlichkeit so zu stabilisieren, dass sie ihren Alltag regeln und gesellschaftliche Anforderungen bewältigen können.</p>
+            <p><a class="btn btn--ghost" href="#kontakt">Beratung anfragen</a></p>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="service" id="begleiteter-umgang">
+          <div class="service__media reveal" aria-hidden="true" style="background:linear-gradient(135deg,#e7f2f8,#fbf6ed);">
+            <svg class="illus" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="150" rx="14" fill="#e7f2f8"/><circle cx="64" cy="64" r="17" fill="#0e6e64"/><rect x="47" y="84" width="34" height="36" rx="15" fill="#0e6e64"/><circle cx="136" cy="64" r="17" fill="#6fb4d8"/><rect x="119" y="84" width="34" height="36" rx="15" fill="#6fb4d8"/><path d="M100 70c2-4 9-4 11 0 2 4-3 9-5.5 12-2.5-3-7.5-8-5.5-12Z" fill="#e9694a"/></svg>
+          </div>
+          <div class="prose stack">
+            <span class="tag">Umgang</span>
+            <h2>Begleiteter Umgang</h2>
+            <p>Der Begleitete Umgang gibt Kindern und Jugendlichen die Möglichkeit, ihr gesetzlich verankertes Recht auf eine entwicklungsfördernde, kontinuierliche Beziehung zu beiden Eltern oder anderen wichtigen Bezugspersonen wahrzunehmen – auch nach deren Trennung.</p>
+            <p>Ziel ist die Verselbstständigung der Umgangsgestaltung. Konflikte zwischen den Eltern oder Umgangsberechtigten werden reduziert, eine gute Kommunikation und Kooperation im Interesse des Kindes wird gefördert.</p>
+            <p><a class="btn btn--ghost" href="#kontakt">Beratung anfragen</a></p>
+          </div>
+        </article>
+
+        <!-- 5 -->
+        <article class="service" id="clearing">
+          <div class="service__media reveal" aria-hidden="true">
+            <svg class="illus" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="150" rx="14" fill="#d7ece8"/><circle cx="92" cy="70" r="30" fill="none" stroke="#0e6e64" stroke-width="8"/><line x1="114" y1="92" x2="140" y2="118" stroke="#0e6e64" stroke-width="9" stroke-linecap="round"/><circle cx="92" cy="70" r="13" fill="#f3b53d"/></svg>
+          </div>
+          <div class="prose stack">
+            <span class="tag">Krise</span>
+            <h2>Clearing</h2>
+            <p>Clearing kommt zum Einsatz, wenn sich eine Familie in einer chronischen oder akuten Krisensituation befindet, die sie nicht allein bewältigen kann. Es wird ambulant durchgeführt, sofern keine akute Kindeswohlgefährdung vorliegt.</p>
+            <p>Diese zeitintensive Hilfe setzt lösungsorientiert an den vorhandenen Ressourcen an und begleitet die Familie in Alltagssituationen. Ziel ist es, gemeinsam mit den Kindern und Jugendlichen die Lebenssituation zu analysieren, individuelle Lösungen zu finden und konkrete Maßnahmen zu erarbeiten.</p>
+            <p><a class="btn btn--ghost" href="#kontakt">Beratung anfragen</a></p>
+          </div>
+        </article>
+
+        <!-- 6 -->
+        <article class="service" id="gruppenarbeit">
+          <div class="service__media reveal" aria-hidden="true" style="background:linear-gradient(135deg,#fdf3da,#fbf6ed);">
+            <svg class="illus" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="150" rx="14" fill="#fdf3da"/><circle cx="64" cy="60" r="14" fill="#0e6e64"/><rect x="50" y="78" width="28" height="34" rx="12" fill="#0e6e64"/><circle cx="100" cy="54" r="14" fill="#e9694a"/><rect x="86" y="72" width="28" height="34" rx="12" fill="#e9694a"/><circle cx="136" cy="60" r="14" fill="#6fb4d8"/><rect x="122" y="78" width="28" height="34" rx="12" fill="#6fb4d8"/></svg>
+          </div>
+          <div class="prose stack">
+            <span class="tag">Gruppe</span>
+            <h2>Soziale Gruppenarbeit</h2>
+            <p>Die Soziale Gruppenarbeit unterstützt Jugendliche, die in ihrer Entwicklung zusätzliche Begleitung brauchen. In kleinen Gruppen lernen sie, Konflikte besser zu lösen, Verantwortung zu übernehmen und ihre sozialen Fähigkeiten zu stärken.</p>
+            <p>Durch gemeinsame Aktivitäten und gezielte Übungen erleben die Jugendlichen Gemeinschaft, entdecken ihre Stärken und gewinnen Selbstvertrauen – eine wichtige Grundlage für ein gelingendes Miteinander in Familie, Schule und Alltag.</p>
+            <p><a class="btn btn--ghost" href="#kontakt">Beratung anfragen</a></p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="section--tight" style="padding-bottom: clamp(3.5rem,8vw,6.5rem);">
+      <div class="container">
+        <div class="cta-band reveal">
+          <h2>Nicht sicher, welche Hilfe passt?</h2>
+          <p class="lead" style="max-width:48ch;">Wir beraten Sie gern und finden gemeinsam mit Ihnen und dem Jugendamt das passende Angebot.</p>
+          <div class="hero__actions">
+            <a class="btn btn--accent btn--lg" href="#kontakt">Kontakt aufnehmen</a>
+            <a class="btn btn--ghost btn--lg" href="tel:+491719188816" style="color:#eaf5f2; border-color:rgba(255,255,255,.45);">0171 - 9188816</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div><div class="page" id="kontakt" role="region" aria-label="kontakt">
+    <section class="page-hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="#start">Startseite</a> · Kontakt</p>
+        <span class="eyebrow">Wir sind für Sie da</span>
+        <h1 style="margin:.4rem 0 1rem;">Kontakt aufnehmen</h1>
+        <p class="lead measure">Sie haben eine Frage oder suchen Unterstützung? Schreiben Sie uns über das Formular oder rufen Sie uns an. Wir melden uns schnellstmöglich bei Ihnen – vertraulich und unverbindlich.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container grid grid--2" style="gap: clamp(2rem,5vw,4rem); align-items:start;">
+
+        <!-- Form -->
+        <div class="card" style="padding: clamp(1.4rem,3vw,2.2rem);">
+          <h2 style="font-size:1.5rem;">Schreiben Sie uns</h2>
+          <p style="margin:.5rem 0 1.4rem;">Felder mit <span style="color:var(--coral)">*</span> sind Pflichtfelder.</p>
+          <form class="form" data-contact-form novalidate>
+            <div class="field">
+              <label for="name">Name <span class="req" aria-hidden="true">*</span></label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">E-Mail <span class="req" aria-hidden="true">*</span></label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="message">Nachricht <span class="req" aria-hidden="true">*</span></label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+            <div class="checkbox">
+              <input id="consent" name="consent" type="checkbox" required />
+              <label for="consent">Ich bin damit einverstanden, dass meine Daten zum Zweck der Kontaktaufnahme gespeichert und verarbeitet werden. Mir ist bekannt, dass ich meine Einwilligung jederzeit widerrufen kann. <span style="color:var(--coral)">*</span></label>
+            </div>
+            <div class="form__status form__status--ok" role="status" aria-live="polite" tabindex="-1"></div>
+            <div>
+              <button class="btn btn--lg" type="submit">Nachricht senden
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+            <p class="form__note">Hinweis: Bitte senden Sie keine sensiblen Gesundheitsdaten über dieses Formular. Für vertrauliche Anliegen rufen Sie uns gern an.</p>
+          </form>
+        </div>
+
+        <!-- Contact info -->
+        <div class="stack">
+          <h2 style="font-size:1.5rem;">So erreichen Sie uns</h2>
+          <ul class="contact-meta" style="margin-top:.4rem;">
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span><strong>Praxis Osswald</strong><br>Freier Träger der Kinder- und Jugendhilfe<br>Alarichstraße 22<br>12105 Berlin-Tempelhof</span>
+            </li>
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+              <span><a href="tel:+491719188816">0171 - 9188816</a></span>
+            </li>
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+              <span><a href="mailto:Kontakt@OsswaldPraxis.de">Kontakt@OsswaldPraxis.de</a></span>
+            </li>
+          </ul>
+
+          <iframe
+            class="map-frame"
+            title="Karte: Standort Praxis Osswald, Alarichstraße 22, 12105 Berlin"
+            loading="lazy"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=13.3760%2C52.4385%2C13.3990%2C52.4490&layer=mapnik&marker=52.4438%2C13.3875">
+          </iframe>
+          <p class="form__note"><a href="https://www.openstreetmap.org/?mlat=52.4438&mlon=13.3875#map=16/52.4438/13.3875" target="_blank" rel="noopener">Größere Karte öffnen &amp; Route planen →</a></p>
+        </div>
+      </div>
+    </section>
+  </div><div class="page" id="impressum" role="region" aria-label="impressum">
+    <section class="page-hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="#start">Startseite</a> · Impressum</p>
+        <h1 style="margin:.4rem 0 0;">Impressum</h1>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container prose stack measure" style="max-width:70ch;">
+        <p style="background:var(--teal-50); border:1px solid var(--teal-300); border-radius:var(--r-md); padding:1rem 1.2rem;"><strong>Hinweis:</strong> Dies ist eine Vorlage. Bitte ergänzen bzw. prüfen Sie die folgenden Angaben rechtlich (Angaben gemäß § 5 DDG / § 18 MStV).</p>
+
+        <h3>Angaben gemäß § 5 DDG</h3>
+        <p>
+          Praxis Osswald – Freier Träger der Kinder- und Jugendhilfe<br>
+          [Inhaber:in / Rechtsform]<br>
+          Alarichstraße 22<br>
+          12105 Berlin-Tempelhof
+        </p>
+
+        <h3>Kontakt</h3>
+        <p>
+          Telefon: 0171 - 9188816<br>
+          E-Mail: Kontakt@OsswaldPraxis.de
+        </p>
+
+        <h3>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h3>
+        <p>[Name und Anschrift der verantwortlichen Person]</p>
+
+        <h3>Umsatzsteuer-ID</h3>
+        <p>[falls vorhanden: Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG]</p>
+
+        <h3>Aufsichtsbehörde / Berufsrechtliche Angaben</h3>
+        <p>[falls einschlägig, z. B. zuständiges Jugendamt / Aufsichtsbehörde]</p>
+
+        <h3>EU-Streitschlichtung</h3>
+        <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr/</a>. Wir sind nicht verpflichtet und nicht bereit, an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+
+        <h3>Haftung für Inhalte &amp; Links</h3>
+        <p>Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Für Inhalte externer Links sind ausschließlich deren Betreiber verantwortlich.</p>
+      </div>
+    </section>
+  </div><div class="page" id="datenschutz" role="region" aria-label="datenschutz">
+    <section class="page-hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="#start">Startseite</a> · Datenschutz</p>
+        <h1 style="margin:.4rem 0 0;">Datenschutzerklärung</h1>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container prose stack measure" style="max-width:70ch;">
+        <p style="background:var(--teal-50); border:1px solid var(--teal-300); border-radius:var(--r-md); padding:1rem 1.2rem;"><strong>Hinweis:</strong> Dies ist eine Vorlage und ersetzt keine Rechtsberatung. Bitte passen Sie die Inhalte an Ihre tatsächlichen Verarbeitungen an (DSGVO).</p>
+
+        <h3>1. Verantwortliche Stelle</h3>
+        <p>Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br>
+          Praxis Osswald, Alarichstraße 22, 12105 Berlin-Tempelhof, Kontakt@OsswaldPraxis.de, 0171 - 9188816.</p>
+
+        <h3>2. Erhebung und Verarbeitung personenbezogener Daten</h3>
+        <p>Wir verarbeiten personenbezogene Daten nur, soweit dies zur Bereitstellung der Website sowie zur Bearbeitung Ihrer Anfragen erforderlich ist. Rechtsgrundlagen sind insbesondere Art. 6 Abs. 1 lit. a, b und f DSGVO.</p>
+
+        <h3>3. Kontaktformular</h3>
+        <p>Wenn Sie uns über das Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Formular zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
+
+        <h3>4. Server-Logfiles &amp; Hosting</h3>
+        <p>Der Provider der Seiten erhebt und speichert automatisch Informationen in Server-Logfiles, die Ihr Browser automatisch übermittelt (z. B. Browsertyp, Betriebssystem, Uhrzeit der Anfrage). [Hier Angaben zum Hosting-Anbieter und ggf. Auftragsverarbeitungsvertrag ergänzen.]</p>
+
+        <h3>5. Eingebundene Kartendienste (OpenStreetMap)</h3>
+        <p>Zur Darstellung unseres Standorts binden wir eine Karte von OpenStreetMap ein. Beim Laden der Karte wird eine Verbindung zu deren Servern hergestellt und Ihre IP-Adresse übertragen. [Bitte prüfen und ggf. eine Einwilligungslösung ergänzen.]</p>
+
+        <h3>6. Ihre Rechte</h3>
+        <p>Sie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit sowie Widerspruch. Zudem steht Ihnen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu (in Berlin: Berliner Beauftragte für Datenschutz und Informationsfreiheit).</p>
+
+        <h3>7. Widerruf Ihrer Einwilligung</h3>
+        <p>Eine erteilte Einwilligung können Sie jederzeit mit Wirkung für die Zukunft widerrufen. Eine formlose Mitteilung per E-Mail genügt.</p>
+      </div>
+    </section>
+  </div>
+</main>
+<footer class="site-footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a class="brand" href="#start" aria-label="Praxis Osswald – Startseite">
+            <svg class="brand__mark" viewBox="0 0 48 48" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 14.5c2.2-3.6 8.6-3.4 10.4.8 1.6 3.7-1.1 7.4-4 9.9-1.9 1.6-4.3 3.2-6.4 4.6-2.1-1.4-4.5-3-6.4-4.6-2.9-2.5-5.6-6.2-4-9.9 1.8-4.2 8.2-4.4 10.4-.8Z" fill="#f6b9a6"/>
+              <path d="M9 27c0-1.1.9-2 2-2s2 .9 2 2v6.5c1.6 1.7 4.7 4 8 5.6 2.3 1.1 4 1.4 5 1.4s2.7-.3 5-1.4c3.3-1.6 6.4-3.9 8-5.6V27c0-1.1.9-2 2-2s2 .9 2 2v7.4c0 .6-.2 1.1-.6 1.5C44 38.6 38.7 43 33 45.4c-3 1.2-5.2 1.6-9 1.6s-6-.4-9-1.6C9.3 43 4 38.6 1.6 35.9 1.2 35.5 1 35 1 34.4V27" fill="#8fcfc6"/>
+            </svg>
+            <span class="brand__text">
+              <span class="brand__name">Praxis Osswald</span>
+              <span class="brand__tag">Kinder- &amp; Jugendhilfe Berlin</span>
+            </span>
+          </a>
+          <p style="margin-top: var(--space-4); max-width: 34ch;">Freier Träger der Kinder- und Jugendhilfe. Wir begleiten Familien, Kinder und Jugendliche in Berlin – verlässlich und auf Augenhöhe.</p>
+        </div>
+
+        <div class="footer__nav">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="#start">Startseite</a></li>
+            <li><a href="#leitbild">Leitbild</a></li>
+            <li><a href="#leistungen">Leistungen</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__contact">
+          <h4>Kontakt</h4>
+          <ul>
+            <li>Alarichstraße 22<br>12105 Berlin-Tempelhof</li>
+            <li><a href="tel:+491719188816">0171 - 9188816</a></li>
+            <li><a href="mailto:Kontakt@OsswaldPraxis.de">Kontakt@OsswaldPraxis.de</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>© <span data-year>2026</span> Praxis Osswald. Alle Rechte vorbehalten.</p>
+        <p><a href="#impressum">Impressum</a> &nbsp;·&nbsp; <a href="#datenschutz">Datenschutz</a></p>
+      </div>
+    </div>
+  </footer>
+<script>/* Praxis Osswald – progressive enhancement only. Site works without JS. */
+(function () {
+  "use strict";
+
+  /* Mobile navigation toggle */
+  var nav = document.querySelector(".site-nav");
+  var toggle = document.querySelector(".nav-toggle");
+  if (nav && toggle) {
+    toggle.addEventListener("click", function () {
+      var open = nav.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", String(open));
+    });
+    /* close menu when a link is tapped */
+    nav.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        nav.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
+  /* Entrance animation is handled purely in CSS (.js .reveal) so that
+     content is always visible even if scripts fail to run. */
+
+  /* Contact form – client-side validation + friendly confirmation.
+     Replace the handler with a real endpoint (e.g. Formspree) on deploy. */
+  var form = document.querySelector("[data-contact-form]");
+  if (form) {
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      if (!form.reportValidity()) return;
+      var status = form.querySelector(".form__status");
+      form.reset();
+      if (status) {
+        status.textContent =
+          "Vielen Dank für Ihre Nachricht. Wir melden uns schnellstmöglich bei Ihnen.";
+        status.classList.add("is-visible");
+        status.focus();
+      }
+    });
+  }
+
+  /* Footer year */
+  var y = document.querySelector("[data-year]");
+  if (y) y.textContent = String(new Date().getFullYear());
+})();
+</script>
+<script>
+(function(){
+  var pages=['start', 'leitbild', 'leistungen', 'kontakt', 'impressum', 'datenschutz'];
+  function show(h){
+    if(pages.indexOf(h)===-1) return false;
+    document.querySelectorAll('.page').forEach(function(p){p.hidden=(p.id!==h);});
+    document.querySelectorAll('.nav a[data-page]').forEach(function(a){
+      if(a.getAttribute('data-page')===h){a.setAttribute('aria-current','page');}else{a.removeAttribute('aria-current');}
+    });
+    window.scrollTo(0,0);
+    return true;
+  }
+  function route(){
+    var h=(location.hash||'#start').slice(1);
+    if(!show(h)){ /* unknown hash: leave current page for native anchor scroll */ }
+  }
+  window.addEventListener('hashchange',route);
+  show('start'); route();
+})();
+</script>
+</body>
+</html>
