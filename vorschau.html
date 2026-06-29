@@ -1,15 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Vorschau – Praxis Osswald</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<html lang="de"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Vorschau – Praxis Osswald</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
 <script>document.documentElement.classList.add("js");</script>
-<style>
-/* =========================================================================
+<style>/* =========================================================================
    Praxis Osswald – freier Träger der Kinder- und Jugendhilfe
    Design system: warm, vertrauensvoll, modern.
    Brand teal as the anchor, one warm coral accent used sparingly.
@@ -267,6 +261,11 @@ strong { color: var(--ink); font-weight: 600; }
   font-size: .78rem; letter-spacing: .02em; color: var(--teal-800);
   background: var(--teal-100); padding: .28rem .7rem; border-radius: var(--r-pill);
 }
+/* Quick-nav chips (e.g. Leistungen overview) need comfortable tap targets */
+.page-hero nav[aria-label] { gap: .5rem; }
+.page-hero nav[aria-label] a.tag {
+  display: inline-flex; align-items: center; min-height: 40px; padding-inline: 1rem;
+}
 
 /* ---------- Section backgrounds ---------- */
 .bg-soft { background: var(--teal-50); }
@@ -340,7 +339,7 @@ strong { color: var(--ink); font-weight: 600; }
   box-shadow: 0 0 0 4px var(--teal-100);
 }
 .checkbox { display: grid; grid-template-columns: auto 1fr; gap: .7rem; align-items: start; }
-.checkbox input { width: 22px; height: 22px; margin-top: .15rem; accent-color: var(--teal-700); }
+.checkbox input { width: 24px; height: 24px; margin-top: .15rem; accent-color: var(--teal-700); }
 .checkbox label { font-family: var(--font-body); font-weight: 400; color: var(--ink-soft); font-size: .92rem; line-height: 1.5; }
 .form__note { font-size: .85rem; color: var(--ink-faint); }
 .form__status { display: none; padding: .9rem 1rem; border-radius: var(--r-sm); font-weight: 500; }
@@ -364,7 +363,8 @@ strong { color: var(--ink); font-weight: 600; }
 .footer__brand .brand__name { color: #fff; }
 .footer__brand .brand__tag { color: #9cc4bd; }
 .footer h4 { color: #fff; font-size: 1rem; margin-bottom: var(--space-3); }
-.footer ul { display: grid; gap: .6rem; }
+.footer ul { display: grid; gap: .35rem; }
+.footer ul a { display: inline-block; padding: .35rem 0; } /* ≥24px tap height */
 .footer__bottom {
   margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid rgba(255,255,255,.12);
   display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-5); justify-content: space-between;
@@ -406,6 +406,20 @@ strong { color: var(--ink); font-weight: 600; }
   .footer__grid { grid-template-columns: 1fr 1fr; }
   .footer__brand { grid-column: 1 / -1; }
 }
+/* ---------- Smartphone fine-tuning ---------- */
+@media (max-width: 560px) {
+  /* Full-width, thumb-friendly primary actions */
+  .hero__actions { flex-direction: column; align-items: stretch; }
+  .hero__actions .btn { width: 100%; }
+  .cta-band .hero__actions { align-items: stretch; }
+  /* Comfortable footer link spacing for touch */
+  .footer__bottom { gap: var(--space-3); }
+  .page-hero nav[aria-label] a.tag { min-height: 44px; }
+  /* Slightly tighter hero rhythm on small screens */
+  .hero { padding-top: 2rem; }
+  h1 { line-height: 1.12; }
+}
+
 @media (max-width: 680px) {
   .nav { display: none; }
   .nav-toggle { display: inline-flex; }
@@ -429,13 +443,8 @@ strong { color: var(--ink); font-weight: 600; }
   .reveal { opacity: 1; transform: none; }
 }
 
-.page[hidden]{display:none;}
-</style>
-</head>
-<body>
-<div style="background:#0a4842;color:#cfe7e2;text-align:center;font:600 .85rem/1.4 Inter,sans-serif;padding:.5rem 1rem;">Vorschau – Praxis Osswald · klicken Sie durch die Navigation. (Karte &amp; Formularversand sind erst nach dem Deployment aktiv.)</div>
-<a class="skip-link" href="#start">Zum Inhalt springen</a>
-<header class="site-header">
+.page[hidden]{display:none;}</style></head><body><div style="background:#0a4842;color:#cfe7e2;text-align:center;font:600 .85rem/1.4 Inter,sans-serif;padding:.5rem 1rem;">Vorschau – Praxis Osswald · klicken Sie durch die Navigation. (Karte &amp; Formularversand sind erst nach dem Deployment aktiv.)</div>
+<a class="skip-link" href="#start">Zum Inhalt springen</a><header class="site-header">
     <div class="container site-header__inner site-nav">
       <a class="brand" href="#start" data-page="start" aria-label="Praxis Osswald – Startseite">
         <svg class="brand__mark" viewBox="0 0 48 48" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -463,9 +472,7 @@ strong { color: var(--ink); font-weight: 600; }
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
     </div>
-  </header>
-<main id="main">
-<div class="page" id="start" role="region" aria-label="start">
+  </header><main id="main"><div class="page" id="start" role="region" aria-label="start">
     <!-- ============ HERO ============ -->
     <section class="hero">
       <div class="container hero__grid">
@@ -989,9 +996,7 @@ strong { color: var(--ink); font-weight: 600; }
         <p>Eine erteilte Einwilligung können Sie jederzeit mit Wirkung für die Zukunft widerrufen. Eine formlose Mitteilung per E-Mail genügt.</p>
       </div>
     </section>
-  </div>
-</main>
-<footer class="site-footer">
+  </div></main><footer class="site-footer">
     <div class="container">
       <div class="footer__grid">
         <div class="footer__brand">
@@ -1080,26 +1085,4 @@ strong { color: var(--ink); font-weight: 600; }
   var y = document.querySelector("[data-year]");
   if (y) y.textContent = String(new Date().getFullYear());
 })();
-</script>
-<script>
-(function(){
-  var pages=['start', 'leitbild', 'leistungen', 'kontakt', 'impressum', 'datenschutz'];
-  function show(h){
-    if(pages.indexOf(h)===-1) return false;
-    document.querySelectorAll('.page').forEach(function(p){p.hidden=(p.id!==h);});
-    document.querySelectorAll('.nav a[data-page]').forEach(function(a){
-      if(a.getAttribute('data-page')===h){a.setAttribute('aria-current','page');}else{a.removeAttribute('aria-current');}
-    });
-    window.scrollTo(0,0);
-    return true;
-  }
-  function route(){
-    var h=(location.hash||'#start').slice(1);
-    if(!show(h)){ /* unknown hash: leave current page for native anchor scroll */ }
-  }
-  window.addEventListener('hashchange',route);
-  show('start'); route();
-})();
-</script>
-</body>
-</html>
+</script><script>(function(){var pages=['start', 'leitbild', 'leistungen', 'kontakt', 'impressum', 'datenschutz'];function show(h){if(pages.indexOf(h)===-1)return false;document.querySelectorAll('.page').forEach(function(p){p.hidden=(p.id!==h);});document.querySelectorAll('.nav a[data-page]').forEach(function(a){if(a.getAttribute('data-page')===h){a.setAttribute('aria-current','page');}else{a.removeAttribute('aria-current');}});window.scrollTo(0,0);return true;}function route(){var h=(location.hash||'#start').slice(1);show(h);}window.addEventListener('hashchange',route);show('start');route();})();</script></body></html>
