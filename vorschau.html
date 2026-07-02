@@ -2,98 +2,158 @@
 <html lang="de"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Vorschau – Praxis Osswald</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
-<script>document.documentElement.classList.add("js");</script>
+<script>document.documentElement.classList.add("js");try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <style>/* =========================================================================
    Praxis Osswald – freier Träger der Kinder- und Jugendhilfe
-   Design system: warm, vertrauensvoll, modern.
-   Brand teal as the anchor, one warm coral accent used sparingly.
+   Design system v2: warm & trustworthy, built on the modern web platform.
+   Dark mode, view transitions, scroll-driven animations, color-mix, bento.
    ========================================================================= */
+
+/* ---------- View transitions (cross-document, progressive) ---------- */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .28s; }
 
 /* ---------- Design tokens ---------- */
 :root {
+  color-scheme: light;
+
   /* Brand teal scale */
-  --teal-900: #0a4842;
-  --teal-800: #0c574f;
+  --teal-900: #07332e;
+  --teal-800: #0b4a43;
   --teal-700: #0e6e64;
   --teal-600: #128a7c;
-  --teal-500: #1aa396;
+  --teal-500: #16a394;
+  --teal-400: #2dd4bf;
   --teal-300: #8fcfc6;
   --teal-100: #d7ece8;
   --teal-50:  #eef7f4;
 
-  /* Warm neutrals */
-  --cream:    #fbf6ed;
-  --sand-100: #f3ebdb;
-  --ink:      #21302f;
-  --ink-soft: #4c5e5b;
-  --ink-faint:#778885;
-  --white:    #ffffff;
-  --line:     #e6e0d4;
-
-  /* Accents (use sparingly) */
-  --coral:      #e9694a;
+  /* Accents */
+  --coral:      #ef654a;
   --coral-soft: #f6b9a6;
-  --sun:        #f3b53d;
+  --sun:        #f4b942;
   --sky:        #6fb4d8;
 
-  /* Semantic */
-  --bg:        var(--cream);
-  --surface:   var(--white);
-  --primary:   var(--teal-700);
-  --primary-ink: #ffffff;
-  --accent:    var(--coral);
+  /* Neutrals / semantic */
+  --bg:        #faf6ef;
+  --bg-soft:   #eef7f4;
+  --bg-sand:   #f3ebdb;
+  --surface:   #ffffff;
+  --surface-2: #fdfaf4;
+  --ink:       #182422;
+  --ink-soft:  #475955;
+  --ink-faint: #74857f;
+  --line:      #e6dfd2;
+  --heading:   var(--teal-900);
+  --footer-bg: #07332e;
+
+  --shadow-sm: 0 2px 8px rgba(9, 56, 50, .06);
+  --shadow-md: 0 12px 30px rgba(9, 56, 50, .10);
+  --shadow-lg: 0 26px 64px rgba(9, 56, 50, .16);
 
   /* Type */
   --font-display: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
   --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  /* Spacing scale (8pt) */
+  /* Spacing (8pt) */
   --space-1: .25rem; --space-2: .5rem;  --space-3: .75rem; --space-4: 1rem;
   --space-5: 1.5rem; --space-6: 2rem;   --space-7: 3rem;   --space-8: 4rem;
   --space-9: 6rem;
 
-  /* Radius & elevation */
-  --r-sm: 10px; --r-md: 16px; --r-lg: 24px; --r-xl: 36px; --r-pill: 999px;
-  --shadow-sm: 0 2px 8px rgba(13, 71, 65, .06);
-  --shadow-md: 0 12px 30px rgba(13, 71, 65, .10);
-  --shadow-lg: 0 24px 60px rgba(13, 71, 65, .14);
+  --r-sm: 12px; --r-md: 18px; --r-lg: 26px; --r-xl: 38px; --r-pill: 999px;
+  --container: 1180px;
+  --header-h: 74px;
 
-  --container: 1140px;
-  --header-h: 76px;
+  /* Legacy aliases kept for sub-page inline styles */
+  --cream: var(--bg); --sand-100: var(--bg-sand);
+  --primary: var(--teal-700); --primary-ink: #fff; --accent: var(--coral);
+  --r-2: var(--r-md);
+}
+
+/* Dark theme tokens (system preference) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg:        #0b1615;
+    --bg-soft:   #0e1e1c;
+    --bg-sand:   #131f1c;
+    --surface:   #12201e;
+    --surface-2: #152422;
+    --ink:       #e8f1ee;
+    --ink-soft:  #aec3bd;
+    --ink-faint: #7e948e;
+    --line:      #24373372;
+    --heading:   #eaf7f3;
+    --footer-bg: #081211;
+    --teal-100:  #123f39;
+    --teal-50:   #10231f;
+    --teal-300:  #1c6c61;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,.35);
+    --shadow-md: 0 12px 30px rgba(0,0,0,.45);
+    --shadow-lg: 0 26px 64px rgba(0,0,0,.55);
+  }
+}
+/* Dark theme tokens (explicit toggle) */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg:        #0b1615;
+  --bg-soft:   #0e1e1c;
+  --bg-sand:   #131f1c;
+  --surface:   #12201e;
+  --surface-2: #152422;
+  --ink:       #e8f1ee;
+  --ink-soft:  #aec3bd;
+  --ink-faint: #7e948e;
+  --line:      #24373372;
+  --heading:   #eaf7f3;
+  --footer-bg: #081211;
+  --teal-100:  #123f39;
+  --teal-50:   #10231f;
+  --teal-300:  #1c6c61;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,.35);
+  --shadow-md: 0 12px 30px rgba(0,0,0,.45);
+  --shadow-lg: 0 26px 64px rgba(0,0,0,.55);
 }
 
 /* ---------- Reset & base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-html, body { overflow-x: clip; } /* contain decorative blobs without breaking sticky header */
+html, body { overflow-x: clip; }
 body {
   font-family: var(--font-body);
-  font-size: 1.0625rem;          /* 17px */
-  line-height: 1.65;
+  font-size: 1.0625rem;
+  line-height: 1.66;
   color: var(--ink);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  transition: background-color .3s ease, color .3s ease;
 }
 img, svg { display: block; max-width: 100%; }
-a { color: var(--teal-800); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-a:hover { color: var(--teal-600); }
+a { color: var(--teal-600); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--teal-500); }
 ul { padding: 0; list-style: none; }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-weight: 700;
-  line-height: 1.08;
-  letter-spacing: -0.015em;
-  color: var(--teal-900);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  color: var(--heading);
+  text-wrap: balance;
 }
-h1 { font-size: clamp(2.3rem, 5.2vw, 3.9rem); }
-h2 { font-size: clamp(1.8rem, 3.6vw, 2.7rem); }
-h3 { font-size: clamp(1.25rem, 2vw, 1.6rem); letter-spacing: -0.01em; }
-
-p { color: var(--ink-soft); }
+h1 { font-size: clamp(2.5rem, 6vw, 4.4rem); font-weight: 800; }
+h2 { font-size: clamp(1.9rem, 3.8vw, 2.9rem); }
+h3 { font-size: clamp(1.25rem, 2vw, 1.55rem); letter-spacing: -0.01em; }
+p { color: var(--ink-soft); text-wrap: pretty; }
 strong { color: var(--ink); font-weight: 600; }
+
+/* Gradient highlight text */
+.grad {
+  background: linear-gradient(94deg, var(--teal-500) 0%, var(--teal-400) 45%, var(--coral) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
 
 /* ---------- Layout helpers ---------- */
 .container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--space-5); }
@@ -101,132 +161,186 @@ strong { color: var(--ink); font-weight: 600; }
 .section--tight { padding-block: clamp(2.5rem, 5vw, 4rem); }
 .center { text-align: center; }
 .measure { max-width: 60ch; }
-.measure-narrow { max-width: 46ch; }
 .stack > * + * { margin-top: var(--space-4); }
+.grid { display: grid; gap: var(--space-5); }
+.grid--2 { grid-template-columns: repeat(2, 1fr); }
+.grid--3 { grid-template-columns: repeat(3, 1fr); }
+.grid--4 { grid-template-columns: repeat(4, 1fr); }
 
 .eyebrow {
-  display: inline-flex; align-items: center; gap: .5rem;
+  display: inline-flex; align-items: center; gap: .55rem;
   font-family: var(--font-display); font-weight: 600;
   font-size: .8rem; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--teal-600);
+  color: var(--teal-500);
 }
-.eyebrow::before {
-  content: ""; width: 26px; height: 2px; border-radius: 2px;
-  background: var(--coral);
-}
+.eyebrow::before { content: ""; width: 26px; height: 2px; border-radius: 2px; background: var(--coral); }
 .lead { font-size: 1.18rem; color: var(--ink-soft); }
 
-/* ---------- Skip link ---------- */
+.bg-soft { background: var(--bg-soft); }
+.bg-sand { background: var(--bg-sand); }
+.bg-teal { background: var(--teal-800); color: #eaf5f2; }
+.bg-teal h2, .bg-teal h3 { color: #fff; }
+.bg-teal p { color: #cfe7e2; }
+
+/* ---------- Skip link & focus ---------- */
 .skip-link {
-  position: absolute; left: 12px; top: -60px; z-index: 200;
+  position: absolute; left: 12px; top: -60px; z-index: 300;
   background: var(--teal-800); color: #fff; padding: .6rem 1rem;
   border-radius: var(--r-sm); transition: top .2s ease; font-weight: 600;
 }
 .skip-link:focus { top: 12px; color: #fff; }
-
-/* ---------- Focus visibility ---------- */
-:focus-visible {
-  outline: 3px solid var(--teal-500);
-  outline-offset: 2px;
-  border-radius: 4px;
-}
+:focus-visible { outline: 3px solid var(--teal-500); outline-offset: 2px; border-radius: 4px; }
 
 /* ---------- Buttons ---------- */
 .btn {
-  --btn-bg: var(--primary); --btn-ink: var(--primary-ink);
+  --btn-bg: var(--teal-700); --btn-ink: #fff;
   display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
   font-family: var(--font-display); font-weight: 600; font-size: 1rem;
-  padding: .85rem 1.5rem; border-radius: var(--r-pill);
+  padding: .85rem 1.6rem; border-radius: var(--r-pill);
   background: var(--btn-bg); color: var(--btn-ink);
   border: 2px solid transparent; cursor: pointer;
   text-decoration: none; min-height: 48px;
   transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
   box-shadow: var(--shadow-sm);
 }
-.btn:hover { color: var(--btn-ink); transform: translateY(-2px); box-shadow: var(--shadow-md); background: var(--teal-800); }
-.btn:active { transform: translateY(0); }
-.btn--accent { --btn-bg: var(--coral); --btn-ink: #fff; }
-.btn--accent:hover { background: #d75a3d; }
+.btn:hover { color: var(--btn-ink); transform: translateY(-2px); box-shadow: var(--shadow-md); background: var(--teal-600); }
+.btn:active { transform: translateY(0) scale(.98); }
+.btn--accent { --btn-bg: var(--coral); }
+.btn--accent:hover { background: #d95a3f; }
 .btn--ghost {
-  --btn-bg: transparent; --btn-ink: var(--teal-800);
-  border-color: var(--teal-300); box-shadow: none;
+  --btn-bg: transparent; --btn-ink: var(--teal-600);
+  border-color: color-mix(in oklab, var(--teal-500) 45%, transparent); box-shadow: none;
 }
-.btn--ghost:hover { background: var(--teal-50); border-color: var(--teal-500); color: var(--teal-800); }
-.btn--lg { padding: 1rem 1.9rem; font-size: 1.06rem; }
+.btn--ghost:hover { background: color-mix(in oklab, var(--teal-500) 10%, transparent); border-color: var(--teal-500); color: var(--teal-500); }
+.btn--lg { padding: 1rem 2rem; font-size: 1.06rem; }
+/* Glow button: gradient ring for the primary hero action */
+.btn--glow { position: relative; --btn-bg: var(--teal-700); }
+.btn--glow::before {
+  content: ""; position: absolute; inset: -3px; border-radius: inherit; z-index: -1;
+  background: conic-gradient(from var(--glow-angle, 0deg), var(--teal-400), var(--coral), var(--sun), var(--teal-400));
+  filter: blur(10px); opacity: .55;
+}
+@property --glow-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+@media (prefers-reduced-motion: no-preference) {
+  .btn--glow::before { animation: glow-spin 6s linear infinite; }
+  @keyframes glow-spin { to { --glow-angle: 360deg; } }
+}
 .btn .icon { width: 20px; height: 20px; }
 
 /* ---------- Header ---------- */
 .site-header {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(251, 246, 237, .82);
-  backdrop-filter: saturate(140%) blur(10px);
+  background: color-mix(in oklab, var(--bg) 78%, transparent);
+  backdrop-filter: saturate(150%) blur(14px);
+  -webkit-backdrop-filter: saturate(150%) blur(14px);
   border-bottom: 1px solid var(--line);
 }
 .site-header__inner {
   display: flex; align-items: center; justify-content: space-between;
-  gap: var(--space-4); min-height: var(--header-h);
+  gap: var(--space-3); min-height: var(--header-h);
 }
 .brand { display: inline-flex; align-items: center; gap: .7rem; text-decoration: none; }
 .brand__mark { width: 44px; height: 44px; flex: none; }
 .brand__text { display: flex; flex-direction: column; line-height: 1.05; }
-.brand__name { font-family: var(--font-display); font-weight: 700; font-size: 1.12rem; color: var(--teal-900); }
-.brand__tag { font-size: .72rem; color: var(--ink-faint); letter-spacing: .01em; }
+.brand__name { font-family: var(--font-display); font-weight: 700; font-size: 1.12rem; color: var(--heading); }
+.brand__tag { font-size: .72rem; color: var(--ink-faint); }
 
 .nav { display: flex; align-items: center; gap: var(--space-2); }
 .nav a {
   font-family: var(--font-display); font-weight: 600; font-size: .98rem;
-  color: var(--teal-900); text-decoration: none;
+  color: var(--heading); text-decoration: none;
   padding: .55rem .85rem; border-radius: var(--r-pill);
   transition: background-color .15s ease, color .15s ease;
 }
-.nav a:hover { background: var(--teal-50); }
+.nav a:hover { background: color-mix(in oklab, var(--teal-500) 12%, transparent); }
 .nav a[aria-current="page"] { background: var(--teal-700); color: #fff; }
 .nav__cta { margin-left: var(--space-2); }
 
+.header-tools { display: flex; align-items: center; gap: var(--space-2); }
+.theme-toggle {
+  width: 44px; height: 44px; border-radius: var(--r-pill);
+  border: 1px solid var(--line); background: var(--surface);
+  display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+  color: var(--heading); transition: transform .18s ease, background-color .18s ease;
+}
+.theme-toggle:hover { transform: rotate(12deg) scale(1.05); }
+.theme-toggle .icon { width: 20px; height: 20px; }
+.theme-toggle .icon--sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon--sun { display: block; }
+:root[data-theme="dark"] .theme-toggle .icon--moon { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .icon--sun { display: block; }
+  :root:not([data-theme="light"]) .theme-toggle .icon--moon { display: none; }
+}
+
 .nav-toggle {
   display: none; width: 48px; height: 48px; border: 1px solid var(--line);
-  background: var(--white); border-radius: var(--r-sm); cursor: pointer;
-  align-items: center; justify-content: center;
+  background: var(--surface); border-radius: var(--r-sm); cursor: pointer;
+  align-items: center; justify-content: center; color: var(--heading);
 }
-.nav-toggle .icon { width: 24px; height: 24px; color: var(--teal-900); }
+.nav-toggle .icon { width: 24px; height: 24px; }
 
-/* ---------- Hero ---------- */
-.hero { position: relative; overflow: hidden; padding-block: clamp(3rem, 7vw, 5.5rem); }
-.hero__grid {
-  display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(2rem, 5vw, 4rem);
-  align-items: center;
+/* Scroll progress (CSS scroll-driven animation, hidden if unsupported) */
+.scroll-progress { display: none; }
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    display: block; position: absolute; left: 0; bottom: -1px; height: 3px; width: 100%;
+    background: linear-gradient(90deg, var(--teal-400), var(--coral));
+    transform-origin: 0 50%; transform: scaleX(0);
+    animation: progress-grow linear both;
+    animation-timeline: scroll(root);
+  }
+  @keyframes progress-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 }
-.hero h1 { margin-bottom: var(--space-4); }
-.hero h1 .hl { color: var(--teal-600); }
+
+/* ---------- Hero v2: gradient mesh ---------- */
+.hero { position: relative; overflow: clip; padding-block: clamp(4rem, 10vw, 8rem) clamp(3.5rem, 8vw, 6rem); }
+.hero__mesh { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.mesh { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .5; }
+.mesh--1 { width: 46vw; height: 46vw; min-width: 380px; min-height: 380px; background: var(--teal-400); top: -18%; right: -8%; }
+.mesh--2 { width: 34vw; height: 34vw; min-width: 300px; min-height: 300px; background: var(--coral); bottom: -22%; left: -10%; opacity: .3; }
+.mesh--3 { width: 22vw; height: 22vw; min-width: 200px; min-height: 200px; background: var(--sun); top: 10%; left: 22%; opacity: .25; }
+@media (prefers-reduced-motion: no-preference) {
+  .mesh--1 { animation: drift 16s ease-in-out infinite alternate; }
+  .mesh--2 { animation: drift 20s ease-in-out infinite alternate-reverse; }
+  .mesh--3 { animation: drift 24s ease-in-out infinite alternate; }
+  @keyframes drift { to { transform: translate(-4%, 6%) scale(1.08); } }
+}
+.hero__inner { position: relative; z-index: 1; max-width: 56rem; }
+.hero h1 { margin-block: var(--space-4) var(--space-5); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
 .hero__trust {
-  display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; margin-top: var(--space-6);
+  display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: var(--space-6);
   color: var(--ink-soft); font-size: .95rem;
 }
 .hero__trust li { display: inline-flex; align-items: center; gap: .5rem; }
-.hero__trust .icon { width: 18px; height: 18px; color: var(--teal-600); }
+.hero__trust .icon { width: 18px; height: 18px; color: var(--teal-500); }
 
-.hero__art { position: relative; }
-.hero__card {
-  position: relative; z-index: 2; background: var(--white);
-  border-radius: var(--r-xl); box-shadow: var(--shadow-lg);
-  padding: clamp(1.5rem, 3vw, 2.4rem); overflow: hidden;
+/* ---------- Marquee ---------- */
+.marquee {
+  --gap: 2.5rem;
+  display: flex; gap: var(--gap); overflow: hidden;
+  padding-block: var(--space-4);
+  border-block: 1px solid var(--line);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
-.blob {
-  position: absolute; border-radius: 50%; filter: blur(2px); opacity: .9; z-index: 0;
+.marquee__track {
+  display: flex; align-items: center; gap: var(--gap);
+  flex: none; min-width: 100%; justify-content: space-around;
 }
-.blob--1 { width: 320px; height: 320px; background: var(--teal-100); top: -60px; right: -60px; }
-.blob--2 { width: 220px; height: 220px; background: var(--coral-soft); bottom: -50px; left: -40px; opacity: .55; }
+@media (prefers-reduced-motion: no-preference) {
+  .marquee__track { animation: marquee 30s linear infinite; }
+  .marquee:hover .marquee__track { animation-play-state: paused; }
+  @keyframes marquee { to { transform: translateX(calc(-100% - var(--gap))); } }
+}
+.marquee__item {
+  display: inline-flex; align-items: center; gap: .6rem; white-space: nowrap;
+  font-family: var(--font-display); font-weight: 600; font-size: 1.02rem; color: var(--heading);
+}
+.marquee__item .icon { width: 18px; height: 18px; color: var(--coral); }
 
-/* decorative wave divider */
-.wave { display: block; width: 100%; height: auto; color: var(--teal-50); }
-
-/* ---------- Cards & grids ---------- */
-.grid { display: grid; gap: var(--space-5); }
-.grid--2 { grid-template-columns: repeat(2, 1fr); }
-.grid--3 { grid-template-columns: repeat(3, 1fr); }
-.grid--4 { grid-template-columns: repeat(4, 1fr); }
-
+/* ---------- Cards, chips, tags ---------- */
 .card {
   background: var(--surface); border: 1px solid var(--line);
   border-radius: var(--r-lg); padding: var(--space-5);
@@ -234,54 +348,149 @@ strong { color: var(--ink); font-weight: 600; }
   transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
 .card--link { display: block; text-decoration: none; color: inherit; }
-.card--link:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--teal-300); color: inherit; }
+.card--link:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: color-mix(in oklab, var(--teal-500) 50%, transparent); color: inherit; }
 .card h3 { margin-bottom: var(--space-2); }
 .card p { font-size: .98rem; }
 .card__more {
   display: inline-flex; align-items: center; gap: .4rem; margin-top: var(--space-4);
-  font-family: var(--font-display); font-weight: 600; color: var(--teal-700);
+  font-family: var(--font-display); font-weight: 600; color: var(--teal-500);
 }
-.card--link:hover .card__more { gap: .65rem; color: var(--teal-600); }
+.card--link:hover .card__more { gap: .7rem; }
 .card__more .icon { width: 18px; height: 18px; }
 
-/* icon chip */
 .chip {
-  width: 56px; height: 56px; border-radius: var(--r-md);
+  width: 54px; height: 54px; border-radius: var(--r-md);
   display: grid; place-items: center; margin-bottom: var(--space-4);
-  background: var(--teal-50); color: var(--teal-700);
+  background: color-mix(in oklab, var(--teal-500) 14%, transparent); color: var(--teal-500);
 }
-.chip .icon { width: 28px; height: 28px; }
-.chip--coral { background: #fdeee9; color: var(--coral); }
-.chip--sun { background: #fdf3da; color: #c98a09; }
-.chip--sky { background: #e7f2f8; color: #2f7ba3; }
+.chip .icon { width: 26px; height: 26px; }
+.chip--coral { background: color-mix(in oklab, var(--coral) 14%, transparent); color: var(--coral); }
+.chip--sun { background: color-mix(in oklab, var(--sun) 18%, transparent); color: color-mix(in oklab, var(--sun) 75%, var(--ink)); }
+.chip--sky { background: color-mix(in oklab, var(--sky) 18%, transparent); color: color-mix(in oklab, var(--sky) 70%, var(--ink)); }
 
-/* tag / badge */
 .tag {
   display: inline-block; font-family: var(--font-display); font-weight: 600;
-  font-size: .78rem; letter-spacing: .02em; color: var(--teal-800);
-  background: var(--teal-100); padding: .28rem .7rem; border-radius: var(--r-pill);
+  font-size: .78rem; letter-spacing: .02em; color: var(--teal-500);
+  background: color-mix(in oklab, var(--teal-500) 13%, transparent);
+  padding: .28rem .75rem; border-radius: var(--r-pill);
 }
-/* Quick-nav chips (e.g. Leistungen overview) need comfortable tap targets */
 .page-hero nav[aria-label] { gap: .5rem; }
-.page-hero nav[aria-label] a.tag {
-  display: inline-flex; align-items: center; min-height: 40px; padding-inline: 1rem;
-}
+.page-hero nav[aria-label] a.tag { display: inline-flex; align-items: center; min-height: 40px; padding-inline: 1rem; }
 
-/* ---------- Section backgrounds ---------- */
-.bg-soft { background: var(--teal-50); }
-.bg-teal { background: var(--teal-800); color: #eaf5f2; }
-.bg-teal h2, .bg-teal h3 { color: #fff; }
-.bg-teal p { color: #cfe7e2; }
-.bg-sand { background: var(--sand-100); }
+/* ---------- Bento grid ---------- */
+.bento { display: grid; gap: var(--space-4); grid-template-columns: repeat(12, 1fr); margin-top: var(--space-7); }
+.bento > * { grid-column: span 12; }
+@media (min-width: 860px) {
+  .bento .b-7 { grid-column: span 7; }
+  .bento .b-5 { grid-column: span 5; }
+  .bento .b-6 { grid-column: span 6; }
+}
+.bento .card { position: relative; overflow: hidden; display: flex; flex-direction: column; }
+.bento .card::after {
+  content: ""; position: absolute; inset: 0; opacity: 0; pointer-events: none;
+  transition: opacity .3s ease;
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%),
+              color-mix(in oklab, var(--teal-400) 16%, transparent), transparent 70%);
+}
+.bento .card:hover::after { opacity: 1; }
+.bento .card .card__more { margin-top: auto; padding-top: var(--space-4); }
+.bento .card--feature {
+  background:
+    radial-gradient(120% 140% at 100% 0%, color-mix(in oklab, var(--teal-400) 16%, transparent), transparent 55%),
+    var(--surface);
+}
 
 /* ---------- Values ---------- */
 .value { text-align: left; }
-.value__num {
-  font-family: var(--font-display); font-weight: 700; font-size: .9rem;
-  color: var(--coral);
+.value__num { font-family: var(--font-display); font-weight: 700; font-size: .9rem; color: var(--coral); }
+
+/* ---------- Stats band ---------- */
+.stats {
+  background:
+    radial-gradient(110% 160% at 85% -20%, color-mix(in oklab, var(--teal-400) 22%, transparent), transparent 55%),
+    var(--teal-900);
+  color: #eaf5f2;
+}
+:root[data-theme="dark"] .stats { background-color: #0d1f1c; }
+.stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); padding-block: clamp(3rem, 6vw, 4.5rem); }
+.stat { text-align: center; }
+.stat__num {
+  font-family: var(--font-display); font-weight: 800; font-size: clamp(2.4rem, 5vw, 3.6rem);
+  line-height: 1; display: block; font-variant-numeric: tabular-nums;
+  background: linear-gradient(94deg, var(--teal-400), #9ef0e4 55%, var(--sun));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.stat__label { display: block; margin-top: .5rem; color: #b9d8d1; font-size: .95rem; }
+
+/* ---------- Steps ---------- */
+.steps { counter-reset: step; display: grid; gap: var(--space-5); position: relative; }
+.step { position: relative; padding-left: 4.2rem; }
+.step::before {
+  counter-increment: step; content: counter(step);
+  position: absolute; left: 0; top: 0;
+  width: 3rem; height: 3rem; border-radius: var(--r-pill);
+  background: var(--surface); border: 2px solid color-mix(in oklab, var(--teal-500) 45%, transparent);
+  color: var(--teal-500);
+  font-family: var(--font-display); font-weight: 700; font-size: 1.2rem;
+  display: grid; place-items: center;
+}
+.step:not(:last-child)::after {
+  content: ""; position: absolute; left: calc(1.5rem - 1px); top: 3.4rem; bottom: -1.4rem;
+  width: 2px; background: linear-gradient(var(--teal-300), transparent);
+}
+.step h3 { margin-bottom: var(--space-1); }
+
+/* ---------- FAQ (exclusive accordion via details[name]) ---------- */
+.faq-list { display: grid; gap: var(--space-3); margin-top: var(--space-6); }
+.faq {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-md); box-shadow: var(--shadow-sm);
+  transition: border-color .2s ease;
+}
+.faq[open] { border-color: color-mix(in oklab, var(--teal-500) 45%, transparent); }
+.faq summary {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+  cursor: pointer; list-style: none; padding: 1.1rem 1.3rem; min-height: 48px;
+  font-family: var(--font-display); font-weight: 600; font-size: 1.06rem; color: var(--heading);
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary .icon { width: 22px; height: 22px; flex: none; color: var(--teal-500); transition: transform .25s ease; }
+.faq[open] summary .icon { transform: rotate(45deg); }
+.faq__body { padding: 0 1.3rem 1.2rem; }
+.faq__body p + p { margin-top: var(--space-3); }
+@media (prefers-reduced-motion: no-preference) {
+  .faq__body { animation: faq-in .3s ease both; }
+  @keyframes faq-in { from { opacity: 0; transform: translateY(-6px); } }
 }
 
-/* ---------- Service detail blocks ---------- */
+/* ---------- CTA band ---------- */
+.cta-band {
+  position: relative; overflow: hidden;
+  border-radius: var(--r-xl); padding: clamp(2.2rem, 5vw, 3.8rem);
+  background:
+    radial-gradient(120% 140% at 100% 0%, color-mix(in oklab, var(--sun) 22%, transparent), transparent 55%),
+    radial-gradient(120% 140% at 0% 100%, color-mix(in oklab, var(--teal-400) 18%, transparent), transparent 55%),
+    var(--teal-900);
+  color: #fff; text-align: center;
+}
+.cta-band h2 { color: #fff; }
+.cta-band p { color: #cfe7e2; margin-inline: auto; }
+.cta-band .hero__actions { justify-content: center; }
+
+/* ---------- Page hero (sub pages) ---------- */
+.page-hero { padding-block: clamp(2.5rem, 6vw, 4.5rem); background: var(--bg-soft); position: relative; overflow: clip; }
+.page-hero::after {
+  content: ""; position: absolute; right: -8%; top: -40%; width: 420px; height: 420px;
+  border-radius: 50%; filter: blur(80px); opacity: .35; pointer-events: none;
+  background: var(--teal-400);
+}
+.page-hero > .container { position: relative; z-index: 1; }
+.page-hero .eyebrow { margin-bottom: var(--space-3); }
+.page-hero p { font-size: 1.15rem; }
+.breadcrumb { font-size: .85rem; color: var(--ink-faint); margin-bottom: var(--space-4); }
+.breadcrumb a { color: var(--teal-500); text-decoration: none; }
+
+/* ---------- Service detail blocks (Leistungen) ---------- */
 .service {
   display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(1.5rem, 4vw, 3.5rem);
   align-items: center; padding-block: clamp(2rem, 4vw, 3.2rem);
@@ -297,141 +506,124 @@ strong { color: var(--ink); font-weight: 600; }
 .service:nth-child(even) .service__media { order: 2; }
 .service h2 { font-size: clamp(1.5rem, 2.6vw, 2rem); margin-bottom: var(--space-3); }
 
-/* ---------- Process steps ---------- */
-.steps { counter-reset: step; display: grid; gap: var(--space-5); }
-.step { position: relative; padding-left: 4.2rem; }
-.step::before {
-  counter-increment: step; content: counter(step);
-  position: absolute; left: 0; top: 0;
-  width: 3rem; height: 3rem; border-radius: var(--r-pill);
-  background: var(--white); border: 2px solid var(--teal-300); color: var(--teal-700);
-  font-family: var(--font-display); font-weight: 700; font-size: 1.2rem;
-  display: grid; place-items: center;
-}
-.step h3 { margin-bottom: var(--space-1); }
-
-/* ---------- CTA band ---------- */
-.cta-band {
-  border-radius: var(--r-xl); padding: clamp(2rem, 5vw, 3.5rem);
-  background:
-    radial-gradient(120% 120% at 100% 0%, rgba(243,181,61,.18), transparent 60%),
-    var(--teal-800);
-  color: #fff; text-align: center;
-}
-.cta-band h2 { color: #fff; }
-.cta-band p { color: #cfe7e2; margin-inline: auto; }
-.cta-band .hero__actions { justify-content: center; }
+/* ---------- Prose ---------- */
+.prose p + p { margin-top: var(--space-4); }
+.prose h3 { margin-top: var(--space-6); margin-bottom: var(--space-2); }
 
 /* ---------- Forms ---------- */
 .form { display: grid; gap: var(--space-4); }
 .field { display: grid; gap: .4rem; }
-.field label { font-family: var(--font-display); font-weight: 600; color: var(--teal-900); font-size: .95rem; }
+.field label { font-family: var(--font-display); font-weight: 600; color: var(--heading); font-size: .95rem; }
 .field .req { color: var(--coral); }
 .field input, .field textarea {
   width: 100%; font: inherit; color: var(--ink);
-  background: var(--white); border: 1.5px solid var(--line);
+  background: var(--surface-2); border: 1.5px solid var(--line);
   border-radius: var(--r-sm); padding: .8rem .9rem; min-height: 48px;
   transition: border-color .15s ease, box-shadow .15s ease;
 }
 .field textarea { min-height: 150px; resize: vertical; }
 .field input:focus, .field textarea:focus {
   outline: none; border-color: var(--teal-500);
-  box-shadow: 0 0 0 4px var(--teal-100);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--teal-500) 18%, transparent);
 }
 .checkbox { display: grid; grid-template-columns: auto 1fr; gap: .7rem; align-items: start; }
-.checkbox input { width: 24px; height: 24px; margin-top: .15rem; accent-color: var(--teal-700); }
+.checkbox input { width: 24px; height: 24px; margin-top: .15rem; accent-color: var(--teal-600); }
 .checkbox label { font-family: var(--font-body); font-weight: 400; color: var(--ink-soft); font-size: .92rem; line-height: 1.5; }
 .form__note { font-size: .85rem; color: var(--ink-faint); }
 .form__status { display: none; padding: .9rem 1rem; border-radius: var(--r-sm); font-weight: 500; }
 .form__status.is-visible { display: block; }
-.form__status--ok { background: var(--teal-50); color: var(--teal-800); border: 1px solid var(--teal-300); }
+.form__status--ok { background: var(--teal-50); color: var(--teal-500); border: 1px solid color-mix(in oklab, var(--teal-500) 40%, transparent); }
 
 .contact-meta { display: grid; gap: var(--space-3); }
 .contact-meta li { display: grid; grid-template-columns: auto 1fr; gap: .8rem; align-items: start; }
-.contact-meta .icon { width: 22px; height: 22px; color: var(--teal-600); margin-top: .15rem; }
-.contact-meta a { color: var(--teal-800); }
+.contact-meta .icon { width: 22px; height: 22px; color: var(--teal-500); margin-top: .15rem; }
+.contact-meta a { color: var(--teal-500); display: inline-block; padding: .25rem 0; }
 .map-frame {
   width: 100%; aspect-ratio: 4 / 3; border: 0; border-radius: var(--r-lg);
   box-shadow: var(--shadow-sm); margin-top: var(--space-5);
 }
 
+/* ---------- Hero card / blobs (Leitbild illustration) ---------- */
+.hero__art { position: relative; }
+.hero__card {
+  position: relative; z-index: 2; background: var(--surface);
+  border-radius: var(--r-xl); box-shadow: var(--shadow-lg);
+  padding: clamp(1.5rem, 3vw, 2.4rem); overflow: hidden;
+}
+.blob { position: absolute; border-radius: 50%; filter: blur(2px); opacity: .8; z-index: 0; }
+.blob--1 { width: 320px; height: 320px; background: var(--teal-100); top: -60px; right: -60px; }
+.blob--2 { width: 220px; height: 220px; background: var(--coral-soft); bottom: -50px; left: -40px; opacity: .4; }
+
 /* ---------- Footer ---------- */
-.site-footer { background: var(--teal-900); color: #cfe7e2; padding-block: var(--space-8) var(--space-6); }
+.site-footer { background: var(--footer-bg); color: #cfe7e2; padding-block: var(--space-8) var(--space-6); }
 .site-footer a { color: #d7ece8; text-decoration: none; }
 .site-footer a:hover { color: #fff; text-decoration: underline; }
 .footer__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: var(--space-6); }
 .footer__brand .brand__name { color: #fff; }
 .footer__brand .brand__tag { color: #9cc4bd; }
-.footer h4 { color: #fff; font-size: 1rem; margin-bottom: var(--space-3); }
-.footer ul { display: grid; gap: .35rem; }
-.footer ul a { display: inline-block; padding: .35rem 0; } /* ≥24px tap height */
+.site-footer h4 { color: #fff; font-size: 1rem; margin-bottom: var(--space-3); }
+.site-footer .footer__nav ul,
+.site-footer .footer__contact ul { display: grid; gap: .35rem; }
+.site-footer ul a { display: inline-block; padding: .4rem 0; }
 .footer__bottom {
   margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid rgba(255,255,255,.12);
   display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-5); justify-content: space-between;
   font-size: .88rem; color: #9cc4bd;
 }
+.footer__bottom a { display: inline-block; padding: .3rem .15rem; }
 
-/* ---------- Page hero (sub pages) ---------- */
-.page-hero { padding-block: clamp(2.5rem, 6vw, 4.5rem); background: var(--teal-50); }
-.page-hero .eyebrow { margin-bottom: var(--space-3); }
-.page-hero p { font-size: 1.15rem; }
-.breadcrumb { font-size: .85rem; color: var(--ink-faint); margin-bottom: var(--space-4); }
-.breadcrumb a { color: var(--teal-700); text-decoration: none; }
-
-/* ---------- Entrance animation ----------
-   Content is always visible. A gentle one-time fade-up runs on load for a
-   little polish; it never hides content, so no-JS and slow loads are safe. */
+/* ---------- Entrance & scroll-driven reveal ----------
+   Content is always visible; animation is pure enhancement. */
 .reveal { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: no-preference) {
   .js .reveal { animation: fade-up .6s cubic-bezier(.22,.61,.36,1) both; }
+  /* Modern browsers: tie the reveal to scroll position instead */
+  @supports (animation-timeline: view()) {
+    .js .reveal {
+      animation: fade-up linear both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 45%;
+    }
+  }
 }
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: none; }
 }
 
-/* ---------- Prose ---------- */
-.prose p + p { margin-top: var(--space-4); }
-.prose h3 { margin-top: var(--space-6); margin-bottom: var(--space-2); }
-
 /* ---------- Responsive ---------- */
 @media (max-width: 920px) {
-  .grid--4 { grid-template-columns: repeat(2, 1fr); }
-  .grid--3 { grid-template-columns: repeat(2, 1fr); }
-  .hero__grid { grid-template-columns: 1fr; }
-  .hero__art { order: -1; max-width: 460px; }
+  .grid--4, .grid--3 { grid-template-columns: repeat(2, 1fr); }
+  .stats__grid { grid-template-columns: repeat(2, 1fr); }
   .service { grid-template-columns: 1fr; }
   .service:nth-child(even) .service__media { order: 0; }
   .service__media { max-width: 460px; }
   .footer__grid { grid-template-columns: 1fr 1fr; }
   .footer__brand { grid-column: 1 / -1; }
+  .hero__art { max-width: 460px; }
 }
-/* ---------- Smartphone fine-tuning ---------- */
 @media (max-width: 560px) {
-  /* Full-width, thumb-friendly primary actions */
   .hero__actions { flex-direction: column; align-items: stretch; }
   .hero__actions .btn { width: 100%; }
   .cta-band .hero__actions { align-items: stretch; }
-  /* Comfortable footer link spacing for touch */
   .footer__bottom { gap: var(--space-3); }
   .page-hero nav[aria-label] a.tag { min-height: 44px; }
-  /* Slightly tighter hero rhythm on small screens */
-  .hero { padding-top: 2rem; }
-  h1 { line-height: 1.12; }
+  .hero { padding-top: 2.5rem; }
+  h1 { line-height: 1.1; }
 }
-
 @media (max-width: 680px) {
   .nav { display: none; }
   .nav-toggle { display: inline-flex; }
   .site-nav.is-open .nav {
     display: flex; flex-direction: column; align-items: stretch;
     position: absolute; left: 0; right: 0; top: var(--header-h);
-    background: var(--white); border-bottom: 1px solid var(--line);
+    background: var(--surface); border-bottom: 1px solid var(--line);
     padding: var(--space-4); gap: var(--space-1); box-shadow: var(--shadow-md);
   }
   .site-nav.is-open .nav a { padding: .85rem 1rem; }
   .nav__cta { margin-left: 0; }
   .grid--2, .grid--3, .grid--4 { grid-template-columns: 1fr; }
+  .stats__grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-6) var(--space-4); }
   .footer__grid { grid-template-columns: 1fr; }
   body { font-size: 1rem; }
 }
@@ -441,16 +633,16 @@ strong { color: var(--ink); font-weight: 600; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
   .reveal { opacity: 1; transform: none; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
 }
 
-.page[hidden]{display:none;}</style></head><body><div style="background:#0a4842;color:#cfe7e2;text-align:center;font:600 .85rem/1.4 Inter,sans-serif;padding:.5rem 1rem;">Vorschau – Praxis Osswald · klicken Sie durch die Navigation. (Karte &amp; Formularversand sind erst nach dem Deployment aktiv.)</div>
+.page[hidden]{display:none;}</style></head><body><div style="background:#07332e;color:#cfe7e2;text-align:center;font:600 .85rem/1.4 Inter,sans-serif;padding:.5rem 1rem;">Vorschau – Praxis Osswald · klicken Sie durch die Navigation, Mond/Sonne schaltet den Dunkelmodus. (Karte &amp; Formularversand sind erst nach dem Deployment aktiv.)</div>
 <a class="skip-link" href="#start">Zum Inhalt springen</a><header class="site-header">
     <div class="container site-header__inner site-nav">
       <a class="brand" href="#start" data-page="start" aria-label="Praxis Osswald – Startseite">
         <svg class="brand__mark" viewBox="0 0 48 48" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-          <path d="M24 14.5c2.2-3.6 8.6-3.4 10.4.8 1.6 3.7-1.1 7.4-4 9.9-1.9 1.6-4.3 3.2-6.4 4.6-2.1-1.4-4.5-3-6.4-4.6-2.9-2.5-5.6-6.2-4-9.9 1.8-4.2 8.2-4.4 10.4-.8Z" fill="#e9694a"/>
-          <path d="M7 27c0-1.1.9-2 2-2s2 .9 2 2v6.5c1.6 1.7 4.7 4 8 5.6 2.3 1.1 4 1.4 5 1.4s2.7-.3 5-1.4c3.3-1.6 6.4-3.9 8-5.6V27c0-1.1.9-2 2-2s2 .9 2 2v7.4c0 .6-.2 1.1-.6 1.5C44 38.6 38.7 43 33 45.4c-3 1.2-5.2 1.6-9 1.6s-6-.4-9-1.6C9.3 43 4 38.6 1.6 35.9 1.2 35.5 1 35 1 34.4V27c0-1.1.9-2 2-2" fill="#0e6e64"/>
-          <path d="M6 26c1.7 0 3 1.3 3 3v5.8c1.4 1.4 3.9 3.3 6.6 4.6" stroke="#0a4842" stroke-width="0" />
+          <path d="M24 14.5c2.2-3.6 8.6-3.4 10.4.8 1.6 3.7-1.1 7.4-4 9.9-1.9 1.6-4.3 3.2-6.4 4.6-2.1-1.4-4.5-3-6.4-4.6-2.9-2.5-5.6-6.2-4-9.9 1.8-4.2 8.2-4.4 10.4-.8Z" fill="#ef654a"/>
+          <path d="M9 27c0-1.1.9-2 2-2s2 .9 2 2v6.5c1.6 1.7 4.7 4 8 5.6 2.3 1.1 4 1.4 5 1.4s2.7-.3 5-1.4c3.3-1.6 6.4-3.9 8-5.6V27c0-1.1.9-2 2-2s2 .9 2 2v7.4c0 .6-.2 1.1-.6 1.5C44 38.6 38.7 43 33 45.4c-3 1.2-5.2 1.6-9 1.6s-6-.4-9-1.6C9.3 43 4 38.6 1.6 35.9 1.2 35.5 1 35 1 34.4V27" fill="#0e6e64"/>
         </svg>
         <span class="brand__text">
           <span class="brand__name">Praxis Osswald</span>
@@ -468,67 +660,141 @@ strong { color: var(--ink); font-weight: 600; }
           Anrufen
         </a>
       </nav>
-      <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
+
+      <div class="header-tools">
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Zwischen hellem und dunklem Design wechseln">
+          <svg class="icon icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+          <svg class="icon icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        </button>
+        <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
     </div>
+    <div class="scroll-progress" aria-hidden="true"></div>
   </header><main id="main"><div class="page" id="start" role="region" aria-label="start">
     <!-- ============ HERO ============ -->
     <section class="hero">
-      <div class="container hero__grid">
-        <div class="hero__copy">
-          <span class="eyebrow">Freier Träger der Kinder- und Jugendhilfe · Berlin</span>
-          <h1>Familien stärken.<br><span class="hl">Junge Menschen begleiten.</span></h1>
-          <p class="lead measure">Wir unterstützen Familien in herausfordernden Lebenslagen und geben Kindern und Jugendlichen einen sicheren, verlässlichen Rahmen, in dem sie wachsen können – ambulant, individuell und auf Augenhöhe.</p>
-          <div class="hero__actions">
-            <a class="btn btn--lg" href="#leistungen">Unsere Leistungen
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </a>
-            <a class="btn btn--ghost btn--lg" href="#kontakt">Kontakt aufnehmen</a>
-          </div>
-          <ul class="hero__trust">
-            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Hilfen zur Erziehung nach SGB VIII</li>
-            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Standort in Berlin-Tempelhof</li>
-            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Respektvoll &amp; verlässlich</li>
-          </ul>
+      <div class="hero__mesh" aria-hidden="true">
+        <span class="mesh mesh--1"></span>
+        <span class="mesh mesh--2"></span>
+        <span class="mesh mesh--3"></span>
+      </div>
+      <div class="container hero__inner">
+        <span class="eyebrow">Freier Träger der Kinder- und Jugendhilfe · Berlin</span>
+        <h1>Wir geben jungen Menschen <span class="grad">Rückenwind</span>.</h1>
+        <p class="lead measure">Praxis Osswald unterstützt Familien in herausfordernden Lebenslagen – ambulant, individuell und auf Augenhöhe. Damit Kinder und Jugendliche sicher aufwachsen und über sich hinauswachsen können.</p>
+        <div class="hero__actions">
+          <a class="btn btn--glow btn--lg" href="#leistungen">Unsere Leistungen
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a class="btn btn--ghost btn--lg" href="#kontakt">Kontakt aufnehmen</a>
+        </div>
+        <ul class="hero__trust">
+          <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Hilfen zur Erziehung nach SGB VIII</li>
+          <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Standort Berlin-Tempelhof</li>
+          <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Vertraulich &amp; verlässlich</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ VALUES MARQUEE ============ -->
+    <div class="marquee" aria-label="Unsere Grundwerte">
+      <div class="marquee__track">
+        <span class="marquee__item"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.8-9C.6 8.6 2.6 5 6.1 5c2 0 3.4 1 4.2 2.3l1.7 2.4 1.7-2.4C14.5 6 15.9 5 17.9 5c3.5 0 5.5 3.6 3.9 7-2.3 4.4-9.8 9-9.8 9Z"/></svg> Respekt</span>
+        <span class="marquee__item"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.8-9C.6 8.6 2.6 5 6.1 5c2 0 3.4 1 4.2 2.3l1.7 2.4 1.7-2.4C14.5 6 15.9 5 17.9 5c3.5 0 5.5 3.6 3.9 7-2.3 4.4-9.8 9-9.8 9Z"/></svg> Würde</span>
+        <span class="marquee__item"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.8-9C.6 8.6 2.6 5 6.1 5c2 0 3.4 1 4.2 2.3l1.7 2.4 1.7-2.4C14.5 6 15.9 5 17.9 5c3.5 0 5.5 3.6 3.9 7-2.3 4.4-9.8 9-9.8 9Z"/></svg> Vertrauen</span>
+        <span class="marquee__item"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.8-9C.6 8.6 2.6 5 6.1 5c2 0 3.4 1 4.2 2.3l1.7 2.4 1.7-2.4C14.5 6 15.9 5 17.9 5c3.5 0 5.5 3.6 3.9 7-2.3 4.4-9.8 9-9.8 9Z"/></svg> Verlässlichkeit</span>
+        <span class="marquee__item"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.8-9C.6 8.6 2.6 5 6.1 5c2 0 3.4 1 4.2 2.3l1.7 2.4 1.7-2.4C14.5 6 15.9 5 17.9 5c3.5 0 5.5 3.6 3.9 7-2.3 4.4-9.8 9-9.8 9Z"/></svg> Auf Augenhöhe</span>
+      </div>
+      <div class="marquee__track" aria-hidden="true">
+        <span class="marquee__item"><svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.8-9C.6 8.6 2.6 5 6.1 5c2 0 3.4 1 4.2 2.3l1.7 2.4 1.7-2.4C14.5 6 15.9 5 17.9 5c3.5 0 5.5 3.6 3.9 7-2.3 4.4-9.8 9-9.8 9Z"/></svg> Respekt</span>
+        <span class="marquee__item"><svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.8-9C.6 8.6 2.6 5 6.1 5c2 0 3.4 1 4.2 2.3l1.7 2.4 1.7-2.4C14.5 6 15.9 5 17.9 5c3.5 0 5.5 3.6 3.9 7-2.3 4.4-9.8 9-9.8 9Z"/></svg> Würde</span>
+        <span class="marquee__item"><svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.8-9C.6 8.6 2.6 5 6.1 5c2 0 3.4 1 4.2 2.3l1.7 2.4 1.7-2.4C14.5 6 15.9 5 17.9 5c3.5 0 5.5 3.6 3.9 7-2.3 4.4-9.8 9-9.8 9Z"/></svg> Vertrauen</span>
+        <span class="marquee__item"><svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.8-9C.6 8.6 2.6 5 6.1 5c2 0 3.4 1 4.2 2.3l1.7 2.4 1.7-2.4C14.5 6 15.9 5 17.9 5c3.5 0 5.5 3.6 3.9 7-2.3 4.4-9.8 9-9.8 9Z"/></svg> Verlässlichkeit</span>
+        <span class="marquee__item"><svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.8-9C.6 8.6 2.6 5 6.1 5c2 0 3.4 1 4.2 2.3l1.7 2.4 1.7-2.4C14.5 6 15.9 5 17.9 5c3.5 0 5.5 3.6 3.9 7-2.3 4.4-9.8 9-9.8 9Z"/></svg> Auf Augenhöhe</span>
+      </div>
+    </div>
+
+    <!-- ============ BENTO: LEISTUNGEN ============ -->
+    <section class="section">
+      <div class="container">
+        <div class="stack" style="max-width:46rem;">
+          <span class="eyebrow">Unsere Leistungen</span>
+          <h2>Ambulante Hilfen zur Erziehung nach SGB&nbsp;VIII</h2>
+          <p class="lead">Maßgeschneiderte Unterstützung, die in der Lebenswelt der Familien ansetzt – von der Beratung im Alltag bis zur intensiven Einzelbegleitung.</p>
         </div>
 
-        <div class="hero__art">
-          <span class="blob blob--1" aria-hidden="true"></span>
-          <span class="blob blob--2" aria-hidden="true"></span>
-          <div class="hero__card">
-            <svg viewBox="0 0 420 360" role="img" aria-label="Illustration: eine Hand gibt einem jungen Menschen Halt, während er aufwächst." xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" stop-color="#eef7f4"/><stop offset="1" stop-color="#d7ece8"/>
-                </linearGradient>
-              </defs>
-              <rect width="420" height="360" rx="20" fill="url(#sky)"/>
-              <circle cx="330" cy="78" r="34" fill="#f3b53d" opacity=".9"/>
-              <g stroke="#f3b53d" stroke-width="3" stroke-linecap="round" opacity=".7">
-                <line x1="330" y1="20" x2="330" y2="34"/><line x1="372" y1="36" x2="362" y2="46"/>
-                <line x1="388" y1="78" x2="374" y2="78"/><line x1="288" y1="36" x2="298" y2="46"/>
-              </g>
-              <!-- ground -->
-              <path d="M0 300 Q 120 270 230 296 T 420 292 V360 H0 Z" fill="#bfe0d8"/>
-              <path d="M0 320 Q 140 300 260 318 T 420 314 V360 H0 Z" fill="#9ed3c8"/>
-              <!-- big supportive hand -->
-              <g fill="#0e6e64">
-                <path d="M70 250c-14-26-26-54-22-66 3-9 13-8 18 2l12 24c-2-22-4-46 0-52 4-7 14-5 15 4l4 40 5-44c1-9 13-9 15 0l3 46 7-38c2-9 13-8 14 1l-2 50c8-8 18-15 24-11 6 5 1 16-6 25-9 12-18 27-23 41-2 6-8 10-14 10H86c-7 0-12-4-16-12Z"/>
-              </g>
-              <g fill="#f6b9a6"><circle cx="106" cy="120" r="2.5"/></g>
-              <!-- growing plant / young person -->
-              <g>
-                <path d="M250 300V200" stroke="#0c574f" stroke-width="8" stroke-linecap="round"/>
-                <path d="M250 232c-22-4-36-22-34-42 22 2 38 20 34 42Z" fill="#1aa396"/>
-                <path d="M250 210c18-8 40-2 50 16-20 8-44 4-50-16Z" fill="#8fcfc6"/>
-                <circle cx="250" cy="180" r="20" fill="#e9694a"/>
-                <path d="M250 168c2-4 8-4 10 0 2 4-2 8-5 11-3-3-7-7-5-11Z" fill="#fff"/>
-                <circle cx="296" cy="150" r="8" fill="#f3b53d"/>
-                <circle cx="214" cy="160" r="6" fill="#6fb4d8"/>
-              </g>
-            </svg>
-          </div>
+        <div class="bento">
+          <a class="card card--link card--feature b-7 reveal" href="#leistungen">
+            <span class="chip" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+            <span class="tag">§ 31 SGB VIII</span>
+            <h3 style="margin-top:.6rem;">Sozialpädagogische Familienhilfe</h3>
+            <p>Die ganze Familie im Mittelpunkt: Eine Fachkraft begleitet Sie über einen längeren Zeitraum – bei der Erziehung, bei Konflikten und beim Lösen alltäglicher Herausforderungen. Gemeinsam entstehen Strategien, mit denen künftige Hürden eigenständig gemeistert werden.</p>
+            <span class="card__more">Mehr erfahren <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a class="card card--link b-5 reveal" href="#leistungen">
+            <span class="chip chip--sun" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></span>
+            <span class="tag">§ 30 SGB VIII</span>
+            <h3 style="margin-top:.6rem;">Erziehungsbeistand</h3>
+            <p>Eine ergänzende Bezugsperson, die junge Menschen ermutigt, ihre Stärken zu entdecken und die eigene Entwicklung in den Blick zu nehmen.</p>
+            <span class="card__more">Mehr erfahren <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a class="card card--link b-5 reveal" href="#leistungen">
+            <span class="chip chip--coral" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z"/></svg></span>
+            <span class="tag">Intensiv</span>
+            <h3 style="margin-top:.6rem;">Intensive Einzelbetreuung</h3>
+            <p>Sehr individuelle Hilfe für junge Menschen in besonders belasteten Lebenslagen – stabilisierend und alltagsnah, bis hin zur 24-Stunden-Begleitung.</p>
+            <span class="card__more">Mehr erfahren <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a class="card card--link b-7 reveal" href="#leistungen">
+            <span class="chip chip--sky" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 21-3-3m0 0a3 3 0 1 0-4.24-4.24A3 3 0 0 0 19 18Z"/></svg></span>
+            <span class="tag">Umgang</span>
+            <h3 style="margin-top:.6rem;">Begleiteter Umgang</h3>
+            <p>Damit Kinder ihr Recht auf eine gute Beziehung zu beiden Eltern wahrnehmen können – auch nach einer Trennung, in einem geschützten Rahmen. Konflikte werden reduziert, Kommunikation im Interesse des Kindes gefördert.</p>
+            <span class="card__more">Mehr erfahren <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a class="card card--link b-6 reveal" href="#leistungen">
+            <span class="chip" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
+            <span class="tag">Krise</span>
+            <h3 style="margin-top:.6rem;">Clearing</h3>
+            <p>Zeitintensive Hilfe in akuten oder chronischen Krisen: Wir analysieren die Lebenssituation und erarbeiten gemeinsam konkrete Lösungen.</p>
+            <span class="card__more">Mehr erfahren <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a class="card card--link b-6 reveal" href="#leistungen">
+            <span class="chip chip--sun" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a8.38 8.38 0 0 1 13 0"/></svg></span>
+            <span class="tag">Gruppe</span>
+            <h3 style="margin-top:.6rem;">Soziale Gruppenarbeit</h3>
+            <p>In kleinen Gruppen lernen Jugendliche, Konflikte zu lösen, Verantwortung zu übernehmen und Selbstvertrauen aufzubauen.</p>
+            <span class="card__more">Mehr erfahren <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STATS ============ -->
+    <section class="stats" aria-label="Praxis Osswald in Zahlen">
+      <div class="container stats__grid">
+        <div class="stat reveal">
+          <span class="stat__num" data-count="6">6</span>
+          <span class="stat__label">Hilfeformen nach SGB VIII</span>
+        </div>
+        <div class="stat reveal">
+          <span class="stat__num" data-count="4">4</span>
+          <span class="stat__label">Grundwerte leiten unsere Arbeit</span>
+        </div>
+        <div class="stat reveal">
+          <span class="stat__num" data-count="1">1</span>
+          <span class="stat__label">feste Bezugsperson pro Familie</span>
+        </div>
+        <div class="stat reveal">
+          <span class="stat__num" data-count="100" data-suffix="&thinsp;%">100&thinsp;%</span>
+          <span class="stat__label">vertraulich &amp; auf Augenhöhe</span>
         </div>
       </div>
     </section>
@@ -569,67 +835,6 @@ strong { color: var(--ink); font-weight: 600; }
       </div>
     </section>
 
-    <!-- ============ SERVICES ============ -->
-    <section class="section">
-      <div class="container">
-        <div class="stack" style="max-width:46rem;">
-          <span class="eyebrow">Unsere Leistungen</span>
-          <h2>Ambulante Hilfen zur Erziehung nach SGB&nbsp;VIII</h2>
-          <p class="lead">Maßgeschneiderte Unterstützung, die in der Lebenswelt der Familien ansetzt – von der Beratung im Alltag bis zur intensiven Einzelbegleitung.</p>
-        </div>
-
-        <div class="grid grid--3" style="margin-top: var(--space-7);">
-          <a class="card card--link reveal" href="#leistungen">
-            <span class="chip" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></span>
-            <span class="tag">§ 30 SGB VIII</span>
-            <h3 style="margin-top:.6rem;">Erziehungsbeistand / BetreuungshelferIn</h3>
-            <p>Eine ergänzende Bezugsperson, die junge Menschen ermutigt, ihre Stärken zu entdecken und ihre Entwicklung selbst in den Blick zu nehmen.</p>
-            <span class="card__more">Mehr erfahren <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
-          </a>
-
-          <a class="card card--link reveal" href="#leistungen">
-            <span class="chip chip--sun" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-            <span class="tag">§ 31 SGB VIII</span>
-            <h3 style="margin-top:.6rem;">Sozialpädagogische Familienhilfe</h3>
-            <p>Begleitung der ganzen Familie über einen längeren Zeitraum – bei der Erziehung, bei Konflikten und beim Lösen alltäglicher Herausforderungen.</p>
-            <span class="card__more">Mehr erfahren <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
-          </a>
-
-          <a class="card card--link reveal" href="#leistungen">
-            <span class="chip chip--coral" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z"/></svg></span>
-            <span class="tag">Intensiv</span>
-            <h3 style="margin-top:.6rem;">Intensive sozialpädagogische Einzelbetreuung</h3>
-            <p>Eine sehr individuelle Hilfe für junge Menschen in besonders belasteten Lebenslagen – stabilisierend, alltagsnah, bis hin zu intensiver Begleitung.</p>
-            <span class="card__more">Mehr erfahren <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
-          </a>
-
-          <a class="card card--link reveal" href="#leistungen">
-            <span class="chip chip--sky" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 21-3-3m0 0a3 3 0 1 0-4.24-4.24A3 3 0 0 0 19 18Z"/></svg></span>
-            <span class="tag">Umgang</span>
-            <h3 style="margin-top:.6rem;">Begleiteter Umgang</h3>
-            <p>Damit Kinder ihr Recht auf eine gute Beziehung zu beiden Eltern wahrnehmen können – auch nach einer Trennung, in einem geschützten Rahmen.</p>
-            <span class="card__more">Mehr erfahren <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
-          </a>
-
-          <a class="card card--link reveal" href="#leistungen">
-            <span class="chip" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
-            <span class="tag">Krise</span>
-            <h3 style="margin-top:.6rem;">Clearing</h3>
-            <p>Eine zeitintensive Hilfe in akuten oder chronischen Krisen: Wir analysieren die Lebenssituation und erarbeiten gemeinsam konkrete Lösungen.</p>
-            <span class="card__more">Mehr erfahren <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
-          </a>
-
-          <a class="card card--link reveal" href="#leistungen">
-            <span class="chip chip--sun" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a8.38 8.38 0 0 1 13 0"/></svg></span>
-            <span class="tag">Gruppe</span>
-            <h3 style="margin-top:.6rem;">Soziale Gruppenarbeit</h3>
-            <p>In kleinen Gruppen lernen Jugendliche, Konflikte zu lösen, Verantwortung zu übernehmen und Selbstvertrauen aufzubauen.</p>
-            <span class="card__more">Mehr erfahren <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
-          </a>
-        </div>
-      </div>
-    </section>
-
     <!-- ============ PROCESS ============ -->
     <section class="section bg-sand">
       <div class="container">
@@ -651,15 +856,59 @@ strong { color: var(--ink); font-weight: 600; }
       </div>
     </section>
 
+    <!-- ============ FAQ ============ -->
+    <section class="section">
+      <div class="container" style="max-width:52rem;">
+        <div class="center stack">
+          <span class="eyebrow" style="margin-inline:auto;">Häufige Fragen</span>
+          <h2>Gut zu wissen</h2>
+        </div>
+        <div class="faq-list">
+          <details class="faq reveal" name="faq">
+            <summary>Wer kann sich an uns wenden?
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </summary>
+            <div class="faq__body">
+              <p>Eltern und Sorgeberechtigte, Kinder und Jugendliche sowie Fachkräfte der Jugendämter. Auch wenn Sie unsicher sind, ob eine Hilfe zur Erziehung das Richtige ist: Rufen Sie uns einfach an – wir hören zu und denken mit.</p>
+            </div>
+          </details>
+          <details class="faq reveal" name="faq">
+            <summary>Was kostet die Unterstützung?
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </summary>
+            <div class="faq__body">
+              <p>Hilfen zur Erziehung nach SGB VIII werden über das zuständige Jugendamt bewilligt und finanziert. Für Familien entstehen in der Regel keine Kosten.</p>
+            </div>
+          </details>
+          <details class="faq reveal" name="faq">
+            <summary>Wie schnell bekommen wir Hilfe?
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </summary>
+            <div class="faq__body">
+              <p>Ein Erstgespräch ist meist kurzfristig möglich. Den Weg über den Hilfeplan mit dem Jugendamt gehen wir gemeinsam mit Ihnen – in Krisensituationen (z.&nbsp;B. beim Clearing) handeln wir besonders zeitnah.</p>
+            </div>
+          </details>
+          <details class="faq reveal" name="faq">
+            <summary>Werden meine Angaben vertraulich behandelt?
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </summary>
+            <div class="faq__body">
+              <p>Ja. Vertraulichkeit und Datenschutz sind für uns selbstverständlich. Informationen werden nur mit Ihrem Einverständnis weitergegeben – Transparenz Ihnen gegenüber ist Teil unseres Leitbilds.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ CTA ============ -->
-    <section class="section--tight">
+    <section class="section--tight" style="padding-bottom: clamp(3.5rem,8vw,6.5rem);">
       <div class="container">
         <div class="cta-band reveal">
           <h2>Sie suchen Unterstützung für Ihre Familie?</h2>
           <p class="lead measure" style="max-width:48ch;">Ob Eltern, junge Menschen oder Fachkräfte vom Jugendamt – wir sind für Sie da und hören zu. Schreiben Sie uns oder rufen Sie einfach an.</p>
           <div class="hero__actions">
             <a class="btn btn--accent btn--lg" href="#kontakt">Kontakt aufnehmen</a>
-            <a class="btn btn--ghost btn--lg" href="tel:+491719188816" style="--teal-300:#7fc3b9; color:#eaf5f2; border-color:rgba(255,255,255,.45);">0171 - 9188816</a>
+            <a class="btn btn--ghost btn--lg" href="tel:+491719188816" style="color:#eaf5f2; border-color:rgba(255,255,255,.45);">0171 - 9188816</a>
           </div>
         </div>
       </div>
@@ -1043,6 +1292,22 @@ strong { color: var(--ink); font-weight: 600; }
 (function () {
   "use strict";
 
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Theme toggle (persisted; the early head script applies it before paint) */
+  var root = document.documentElement;
+  document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var explicit = root.getAttribute("data-theme");
+      var dark = explicit
+        ? explicit === "dark"
+        : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      var next = dark ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("theme", next); } catch (e) {}
+    });
+  });
+
   /* Mobile navigation toggle */
   var nav = document.querySelector(".site-nav");
   var toggle = document.querySelector(".nav-toggle");
@@ -1051,7 +1316,6 @@ strong { color: var(--ink); font-weight: 600; }
       var open = nav.classList.toggle("is-open");
       toggle.setAttribute("aria-expanded", String(open));
     });
-    /* close menu when a link is tapped */
     nav.querySelectorAll("a").forEach(function (a) {
       a.addEventListener("click", function () {
         nav.classList.remove("is-open");
@@ -1060,8 +1324,39 @@ strong { color: var(--ink); font-weight: 600; }
     });
   }
 
-  /* Entrance animation is handled purely in CSS (.js .reveal) so that
-     content is always visible even if scripts fail to run. */
+  /* Count-up stats (final value is already in the markup as fallback) */
+  var stats = document.querySelectorAll("[data-count]");
+  if (stats.length && !reduce && "IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        io.unobserve(entry.target);
+        var el = entry.target;
+        var target = parseInt(el.getAttribute("data-count"), 10);
+        var suffix = el.getAttribute("data-suffix") || "";
+        var t0 = null;
+        var dur = 1200;
+        function tick(t) {
+          if (!t0) t0 = t;
+          var p = Math.min((t - t0) / dur, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.innerHTML = Math.round(target * eased) + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.6 });
+    stats.forEach(function (el) { io.observe(el); });
+  }
+
+  /* Bento spotlight: radial highlight follows the pointer */
+  document.querySelectorAll(".bento .card").forEach(function (card) {
+    card.addEventListener("pointermove", function (ev) {
+      var r = card.getBoundingClientRect();
+      card.style.setProperty("--mx", (ev.clientX - r.left) + "px");
+      card.style.setProperty("--my", (ev.clientY - r.top) + "px");
+    });
+  });
 
   /* Contact form – client-side validation + friendly confirmation.
      Replace the handler with a real endpoint (e.g. Formspree) on deploy. */
